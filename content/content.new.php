@@ -14,7 +14,9 @@
 			
 				$this->_errors = array();
 
+			// Polish up some field content
 				$fields = $_POST['fields'];
+				
 				$fields['pages'] = implode(',',$fields['pages']);
 				
 				$fields['content_formatted'] = DocumentationForm::applyFormatting($fields['content'], true, $this->_errors);
@@ -31,14 +33,15 @@
 
 				if(empty($this->_errors)){
 					
-					// Is this a duplicate?
+				// Check for duplicate items
+				// NOTE: This probably needs to be improved
 					if($this->_Parent->Database->fetchRow(0, "SELECT * FROM `tbl_documentation` 
 						WHERE `pages` = '" . $fields['pages'] . "'  
 						LIMIT 1")){	
 							$this->_errors['title'] = __('Documentation already exists for this page');
 						}
 						
-					// If not, save it	
+				// If it's not a duplicate, save it	
 					else{	
 						if(!$this->_Parent->Database->insert($fields, 'tbl_documentation')) $this->pageAlert(__('Unknown errors occurred while attempting to save. Please check your <a href="%s">activity log</a>.', array(URL.'/symphony/system/log/')), Alert::ERROR);
 

@@ -21,7 +21,9 @@
 			
 				$this->_errors = array();
 
+			// Polish up some field content
 				$fields = $_POST['fields'];
+
 				$fields['pages'] = implode(',',$fields['pages']);
 				
 				$fields['content_formatted'] = DocumentationForm::applyFormatting($fields['content'], true, $this->_errors);

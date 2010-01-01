@@ -7,7 +7,7 @@
 			$this->setPageType('form');
 			$fields = array();
 			
-			// Verify doc exists:
+		// If we're editing, make sure the item exists
 			if ($this->_context[0]) {
 				if (!$doc_id = $this->_context[0]) redirect(URL . '/symphony/extension/documenter/manage');
 				
@@ -32,7 +32,7 @@
 				}
 			}
 			
-			// Status message:
+		// Build the status message
 			if (isset($this->_context[1])) {
 				$this->pageAlert(
 					__(
@@ -50,7 +50,7 @@
 				);
 			}
 			
-			// Find values:
+		// Find values
 			if (isset($_POST['fields'])) {
 				$fields = $_POST['fields'];
 				
@@ -61,7 +61,8 @@
 			
 			$title = $fields['title'];
 			if (trim($title) == '') $title = $existing['title'];
-			
+		
+		// Start building the page
 			$this->setTitle(__(
 				($title ? '%1$s &ndash; %2$s &ndash; %3$s' : '%1$s &ndash; %2$s'),
 				array(
@@ -72,15 +73,14 @@
 			));
 			$this->appendSubheading(($title ? $title : __('Untitled')));
 			
-		// Start Fields
+		// Start building the fieldsets
 			$div = new XMLElement('div');
 			$div->setAttribute('class', 'group');
 		
 			$fieldset = new XMLElement('fieldset');
 			$fieldset->setAttribute('class', 'primary');
 
-		// Title
-			
+		// Title text input
 			$label = Widget::Label(__('Title'));		
 			$label->appendChild(Widget::Input(
 				'fields[title]', General::sanitize($fields['title'])
@@ -89,11 +89,9 @@
 			if (isset($this->_Parent->_errors['title'])) {
 				$label = $this->wrapFormElementWithError($label, $this->_Parent->_errors['title']);
 			}
-			
 			$fieldset->appendChild($label);
 			
-		// Content
-		
+		// Content textarea
 			$label = Widget::Label(__('Content'));
 			
 			$content = Widget::Textarea('fields[content]', 30, 80, $fields['content']);
@@ -104,18 +102,21 @@
 			
 			$div->appendChild($fieldset);
 			
-		// Page --------------------------------------------------------------
-		
+		// Pages multi-select
 			$fieldset = new XMLElement('fieldset');
 			$label = Widget::Label(__('Pages'));
 			$pages_array = explode(',', $fields['pages']);
 			$options = array();
 			
+			// Build the options list using the navigation array
 			foreach($this->_Parent->Page->_navigation as $menu){
 				$items = array();
 				foreach($menu['children'] as $item){
 					$items[] = array($item['link'], (in_array($item['link'], $pages_array)), $menu['name'] . " > " . $item['name']);
-					if($menu['name'] == 'Content'){
+					
+					// If it's a section, add New and Edit pages
+					// NOTE: This will likely break when extensions add custom nav groups
+					if($menu['name'] != 'Blueprints' and $menu['name'] != 'System'){
 						$items[] = array($item['link'] . 'new/', (in_array($item['link'] . 'new/', $pages_array)), $menu['name'] . " > " . $item['name'] . " New");
 						$items[] = array($item['link'] . 'edit/', (in_array($item['link'] . 'edit/', $pages_array)), $menu['name'] . " > " . $item['name'] . " Edit");
 					}
@@ -133,7 +134,7 @@
 			$div->appendChild($fieldset);
 			$this->Form->appendChild($div);
 			
-		// Controls -----------------------------------------------------------
+		// Form actions
 			
 			$div = new XMLElement('div');
 			$div->setAttribute('class', 'actions');

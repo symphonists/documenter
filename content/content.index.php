@@ -5,6 +5,8 @@
 	class contentExtensionDocumenterIndex extends contentBlueprintsPages {
 	
 		public function view() {
+		
+		// Start building the page
 			$this->setPageType('table');
 			$this->setTitle(__('%1$s &ndash; %2$s', array(__('Symphony'), __('Documentation'))));
 			
@@ -12,7 +14,8 @@
 				__('Create New'), URL . '/symphony/extension/documenter/new/',
 				__('Create a new documentation item'), 'create button'
 			));
-			
+		
+		// Grab all the documentation items
 			$docs = $this->_Parent->Database->fetch("
 				SELECT
 					d.*
@@ -22,22 +25,24 @@
 					d.pages ASC
 			");
 			
+		// Build the table
 			$thead = array(
 				array(__('Title'), 'col'),
 				array(__('Pages'), 'col')
 			);
 			
 			$tbody = array();
-			
+
+		// If there are no records, display default message
 			if (!is_array($docs) or empty($docs)) {
 				$tbody = array(Widget::TableRow(array(
 					Widget::TableData(__('None found.'), 'inactive', null, count($thead))
 				), 'odd'));
 				
 			}
-			
+		
+		// Otherwise, build table rows
 			else{
-				
 				$bOdd = true;
 				
 				foreach ($docs as $doc) {
