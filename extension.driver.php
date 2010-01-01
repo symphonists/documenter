@@ -122,7 +122,7 @@
 					`content_formatted` text,
 					PRIMARY KEY (`id`)
 				);");
-			Administration::instance()->Configuration->set('text-formatter', 'pb_markdown', 'documentation');
+			Administration::instance()->Configuration->set('text-formatter', 'pb_markdownextra', 'documentation');
 			Administration::instance()->saveConfig();
 			return;
 		}
