@@ -18,10 +18,17 @@
 			}
 			
 			if(@array_key_exists('save', $_POST['action'])){
+			
+				$this->_errors = array();
+
 				$fields = $_POST['fields'];
 				$fields['pages'] = implode(',',$fields['pages']);
-
-				$this->_errors = array();
+				
+				$fields['content_formatted'] = DocumentationForm::applyFormatting($fields['content'], true, $this->_errors);
+				
+				if($result['content_formatted'] === false){
+					$fields['content_formatted'] = General::sanitize(DocumentationForm::applyFormatting($fields['content']));	
+				}
 
 				if(!isset($fields['content']) || trim($fields['content']) == '') $this->_errors['content'] = __('Content is a required field');
 			

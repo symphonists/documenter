@@ -95,7 +95,11 @@
 		// Content
 		
 			$label = Widget::Label(__('Content'));
-			$label->appendChild(Widget::Textarea('fields[content]', 30, 80, $fields['content'], array('class' => 'code')));
+			
+			$content = Widget::Textarea('fields[content]', 30, 80, $fields['content']);
+			if(Administration::instance()->Configuration->get('text-formatter', 'documentation') != 'none') $content->setAttribute('class', Administration::instance()->Configuration->get('text-formatter', 'documentation'));
+			
+			$label->appendChild($content);
 			$fieldset->appendChild((isset($this->_errors['content']) ? $this->wrapFormElementWithError($label, $this->_errors['content']) : $label));
 			
 			$div->appendChild($fieldset);
@@ -145,6 +149,46 @@
 			}
 			
 			$this->Form->appendChild($div);
+		}
+		
+		function applyFormatting($data, $validate=false, &$errors=NULL){
+		
+			include_once(TOOLKIT . '/class.textformattermanager.php');
+		
+			$text_formatter = Administration::instance()->Configuration->get('text-formatter', 'documentation');
+	
+			if($text_formatter){
+
+				$tfm = new TextformatterManager($this->_engine);
+				$formatter = $tfm->create($text_formatter);
+				$result = $formatter->run($data);
+				
+			}	
+
+			if($validate === true){
+
+				include_once(TOOLKIT . '/class.xsltprocess.php');
+
+				if(!General::validateXML($result, $errors, false, new XsltProcess)){
+					$result = html_entity_decode($result, ENT_QUOTES, 'UTF-8');
+					$result = $this->__replaceAmpersands($result);
+
+					if(!General::validateXML($result, $errors, false, new XsltProcess)){
+
+						$result = $formatter->run(General::sanitize($data));
+					
+						if(!General::validateXML($result, $errors, false, new XsltProcess)){
+							return false;
+						}
+					}
+				}
+			}
+
+			return $result;		
+		}
+		
+		private function __replaceAmpersands($value) {
+			return preg_replace('/&(?!(#[0-9]+|#x[0-9a-f]+|amp|lt|gt);)/i', '&amp;', trim($value));
 		}
 	
 	}
