@@ -4,7 +4,7 @@
 	
 		public function about() {
 			return array(
-				'name'			=> '1.0 beta',
+				'name'			=> '0.9',
 				'release-date'	=> '2010-01-01',
 				'author'		=> array(
 					'name'			=> 'craig zheng',

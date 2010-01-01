@@ -1,6 +1,6 @@
 # Documenter
 
-- Version: 1.0 beta
+- Version: 0.9 (beta)
 - Author: craig zheng
 - Build Date: 1st January 2010
 - Requirements: Symphony 2.0.7
