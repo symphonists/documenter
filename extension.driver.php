@@ -157,7 +157,7 @@
 			$label->appendChild($input);
 			$div->appendChild($label);
 			
-			$TFM = new TextformatterManager($this->_engine);
+			$TFM = new TextformatterManager($this->_Parent);
 			$formatters = $TFM->listAll();
 		
 		// Text formatter select
