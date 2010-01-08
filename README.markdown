@@ -1,9 +1,9 @@
 # Documenter
 
-- Version: 0.9 (beta)
+- Version: 0.9.1 (beta)
 - Author: craig zheng
-- Build Date: 1st January 2010
-- Requirements: Symphony 2.0.7
+- Build Date: 7th January 2010
+- Requirements: Symphony 2.0.5 or higher
 
 A Symphony extension enabling addition of documentation to any page in the back end, including user-defined section indexes and entry editors.
 
