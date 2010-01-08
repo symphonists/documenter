@@ -5,7 +5,7 @@
 		public function about() {
 			return array(
 				'name'			=> 'Documenter',
-				'version'		=> '0.9.1',
+				'version'		=> '0.9.2',
 				'release-date'	=> '2009-01-07',
 				'author'		=> array(
 					'name'			=> 'craig zheng',
@@ -94,7 +94,7 @@
 						LIMIT 1
 					");
 					$backend_page = &$context['parent']->Page->Form;
-					$link = Widget::Anchor(__('Help'), '#', __('View Documentation'), NULL, 'doc_link');
+					$link = Widget::Anchor($this->_Parent->Configuration->get('button-text', 'documentation'), '#', __('View Documentation'), NULL, 'doc_link');
 					$backend_page->appendChild($link);
 					$docs = new XMLElement('div', NULL, array('id' => 'docs'));
 					$title = new XMLElement('h2', $doc_item['title']);
@@ -109,6 +109,7 @@
 		public function uninstall() {
 			$this->_Parent->Database->query("DROP TABLE `tbl_documentation`;");
 			Administration::instance()->Configuration->remove('text-formatter', 'documentation');
+			Administration::instance()->Configuration->remove('button-text', 'documentation');
 			Administration::instance()->saveConfig();
 		}
 	
@@ -123,6 +124,7 @@
 					PRIMARY KEY (`id`)
 				);");
 			Administration::instance()->Configuration->set('text-formatter', 'pb_markdownextra', 'documentation');
+			Administration::instance()->Configuration->set('button-text', 'Help', 'documentation');
 			Administration::instance()->saveConfig();
 			return;
 		}
@@ -143,12 +145,23 @@
 
 			$group = new XMLElement('fieldset');
 			$group->setAttribute('class', 'settings');
-			$group->appendChild(new XMLElement('legend', 'Documentation'));	
+			$group->appendChild(new XMLElement('legend', 'Documentation'));
+			
+			$div = new XMLElement('div');
+			$div->setAttribute('class', 'group');
+		
+		// Input for button text
+			$label = Widget::Label(__('Button Text'));
+			$input = Widget::Input('settings[documentation][button-text]', $this->_Parent->Configuration->get('button-text', 'documentation'), 'text');
+			
+			$label->appendChild($input);
+			$div->appendChild($label);
 			
 			$TFM = new TextformatterManager($this->_engine);
 			$formatters = $TFM->listAll();
-				
-			$label = Widget::Label('Text Formatter');
+		
+		// Text formatter select
+			$label = Widget::Label(__('Text Formatter'));
 		
 			$options = array();
 		
@@ -163,8 +176,9 @@
 			$input = Widget::Select('settings[documentation][text-formatter]', $options);
 			
 			$label->appendChild($input);
-			$group->appendChild($label);
-									
+			$div->appendChild($label);
+			
+			$group->appendChild($div);					
 			$context['wrapper']->appendChild($group);
 						
 		}
