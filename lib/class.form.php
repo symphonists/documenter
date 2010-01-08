@@ -159,7 +159,8 @@
 			$text_formatter = Administration::instance()->Configuration->get('text-formatter', 'documentation');
 	
 			if($text_formatter != 'none'){
-				$tfm = new TextformatterManager($this->_engine);
+			print_r($this->_engine);
+				$tfm = new TextformatterManager($this->_Parent);
 				$formatter = $tfm->create($text_formatter);
 				$result = $formatter->run($data);
 			}
