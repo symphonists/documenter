@@ -100,7 +100,7 @@
     				if(isset($page['id'])) {
     					$doc_items[] = $this->_Parent->Database->fetchRow(0, "
     						SELECT
-    							d.*
+    							d.title, d.content_formatted
     						FROM
     							`tbl_documentation` AS d
   							WHERE
@@ -121,28 +121,33 @@
 				}
 			}
 
-
             /* Allows a page to have more then one documentation source */
             if(!empty($doc_items)) {
-                $backend_page = &$context['parent']->Page->Form;
+                $backend_page = &$context['parent']->Page->Form->getChildren();
+                $navigation = $backend_page[1];
 
+                $listitem = new XMLElement('li', NULL, array('id' => 'doc_item'));
                 $link = Widget::Anchor($this->_Parent->Configuration->get('button-text', 'documentation'), '#', __('View Documentation'), NULL, 'doc_link');
-                $backend_page->appendChild($link);
+                $listitem->appendChild($link);
 
                 $docs = new XMLElement('div', NULL, array('id' => 'docs'));
 
                 foreach($doc_items as $doc_item) {
-                    $docs->appendChild(
-                        new XMLElement('h2', $doc_item['title'])
-                    );
+                    if(isset($doc_item['title'])) {
+                        $docs->appendChild(
+                            new XMLElement('h2', $doc_item['title'])
+                        );
+                    }
+
                     $docs->appendChild(
                         new XMLElement('div', $doc_item['content_formatted'])
                     );
 
-                    $backend_page->appendChild($docs);
+                    $listitem->appendChild($docs);
                 }
-            }
 
+                $navigation->appendChild($listitem);
+            }
 		}
 
 		public function uninstall() {

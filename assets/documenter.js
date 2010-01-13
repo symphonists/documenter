@@ -1,10 +1,6 @@
 jQuery(document).ready(function() {
-
-	$ = jQuery;
-	
-	$("#doc_link").bind('click', function(e){
+	jQuery("#doc_link").bind('click', function(e){
 		e.preventDefault();
-		$("#docs").toggle('normal');
+		jQuery("#docs").toggle('normal');
 	});
-
 });
