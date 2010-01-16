@@ -5,7 +5,7 @@
 		public function about() {
 			return array(
 				'name'			=> 'Documenter',
-				'version'		=> '0.9.3',
+				'version'		=> '0.9.4',
 				'release-date'	=> '2009-01-16',
 				'author'		=> array(
 					'name'			=> 'craig zheng',
@@ -167,7 +167,7 @@
 					`content_formatted` text,
 					PRIMARY KEY (`id`)
 				);");
-			Administration::instance()->Configuration->set('text-formatter', 'pb_markdownextra', 'documentation');
+			Administration::instance()->Configuration->set('text-formatter', 'none', 'documentation');
 			Administration::instance()->Configuration->set('button-text', 'Help', 'documentation');
 			Administration::instance()->saveConfig();
 			return;

@@ -1,6 +1,6 @@
 # Documenter
 
-- Version: 0.9.3 (beta)
+- Version: 0.9.4 (beta)
 - Author: craig zheng
 - Build Date: 16th January 2010
 - Requirements: Symphony 2.0.5 or higher
@@ -29,6 +29,7 @@ Documentation can be managed at `System > Documentation`. For each documentation
 
 ## Changelog
 
+- **0.9.4** Fixed field error issues.
 - **0.9.3** Brendo's updates, eKoeS's style fix.
 - **0.9.2** Made button text configurable, along with a few minor tweaks.
 - **0.9.1** Updated for compatibility with version of Symphony earlier than 2.0.7

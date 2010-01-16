@@ -2,7 +2,7 @@
 
 	class DocumentationForm {
 	
-		function render() {	
+		function render() {
 		
 			$this->setPageType('form');
 			$fields = array();
@@ -86,8 +86,8 @@
 				'fields[title]', General::sanitize($fields['title'])
 			));
 			
-			if (isset($this->_Parent->_errors['title'])) {
-				$label = $this->wrapFormElementWithError($label, $this->_Parent->_errors['title']);
+			if (isset($this->_errors['title'])) {
+				$label = $this->wrapFormElementWithError($label, $this->_errors['title']);
 			}
 			$fieldset->appendChild($label);
 			
@@ -126,8 +126,8 @@
 			
 			$label->appendChild(Widget::Select('fields[pages][]', $options, array('multiple' => 'multiple', 'id' => 'pagelist')));
 			
-			if (isset($this->_Parent->_errors['page'])) {
-				$label = $this->wrapFormElementWithError($label, $this->_Parent->_errors['page']);
+			if (isset($this->_errors['pages'])) {
+				$label = $this->wrapFormElementWithError($label, $this->_errors['pages']);
 			}
 			
 			$fieldset->appendChild($label);
