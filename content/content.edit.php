@@ -23,6 +23,10 @@
 
 			// Polish up some field content
 				$fields = $_POST['fields'];
+				
+				if(isset($fields['pages'])) {
+					$fields['pages'] = implode(',',$fields['pages']);
+				}
 
 				if($result['content_formatted'] === false){
 					$fields['content_formatted'] = General::sanitize(DocumentationForm::applyFormatting($fields['content']));	
@@ -36,7 +40,7 @@
 
 				if(!isset($fields['content']) || trim($fields['content']) == '') $this->_errors['content'] = __('Content is a required field');
 			
-				if(!isset($fields['pages']) || trim($fields['pages']) == '') $this->_errors['pages'] = __('Page is a required field');	
+				if(!isset($fields['pages']) || trim($fields['pages']) == '') $this->_errors['pages'] = __('Pages is a required field');	
 
 				if(empty($this->_errors)){
 					if(!$this->_Parent->Database->update($fields, 'tbl_documentation', "`id` = '$doc_id'")) $this->pageAlert(__('Unknown errors occurred while attempting to save. Please check your <a href="%s">activity log</a>.', array(URL.'/symphony/system/log/')), Alert::ERROR);
