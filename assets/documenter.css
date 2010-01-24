@@ -30,7 +30,7 @@ ul#nav li #doc_link:hover {
 	background-color: #444;
 	color: #fff;
 	position: absolute; top: 31px; right: 0;
-	padding: 19px;
+	padding: 0 19px 19px 19px;
 	display: none;
 	-moz-border-radius-bottomleft:10px;
 	-webkit-border-bottom-left-radius:10px;
@@ -48,7 +48,7 @@ ul#nav li #doc_link:hover {
 	padding: 0 0 1em;
 }
 
-#docs h2 {border-bottom:1px solid #777;}
+#docs h2 {border-bottom:1px solid #777;margin-top:19px;}
 
 #docs dt {font-weight: bold;}
 

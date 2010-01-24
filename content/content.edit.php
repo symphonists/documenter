@@ -28,13 +28,9 @@
 					$fields['pages'] = implode(',',$fields['pages']);
 				}
 
-				if($result['content_formatted'] === false){
-					$fields['content_formatted'] = General::sanitize(DocumentationForm::applyFormatting($fields['content']));	
-				}
-				
 				$fields['content_formatted'] = DocumentationForm::applyFormatting($fields['content'], true, $this->_errors);
 				
-				if($result['content_formatted'] === false){
+				if($fields['content_formatted'] === false){
 					$fields['content_formatted'] = General::sanitize(DocumentationForm::applyFormatting($fields['content']));	
 				}
 

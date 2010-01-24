@@ -105,7 +105,13 @@
 		// Pages multi-select
 			$fieldset = new XMLElement('fieldset');
 			$label = Widget::Label(__('Pages'));
-			$pages_array = explode(',', $fields['pages']);
+			
+			if(!is_array($fields['pages'])){
+				$pages_array = explode(',', $fields['pages']);
+			}
+			else {
+				$pages_array = $fields['pages'];
+			}
 			$options = array();
 			
 			// Build the options list using the navigation array
@@ -159,7 +165,6 @@
 			$text_formatter = Administration::instance()->Configuration->get('text-formatter', 'documentation');
 	
 			if($text_formatter != 'none'){
-			print_r($this->_engine);
 				$tfm = new TextformatterManager($this->_Parent);
 				$formatter = $tfm->create($text_formatter);
 				$result = $formatter->run($data);
@@ -174,7 +179,7 @@
 
 				if(!General::validateXML($result, $errors, false, new XsltProcess)){
 					$result = html_entity_decode($result, ENT_QUOTES, 'UTF-8');
-					$result = $this->__replaceAmpersands($result);
+					$result = DocumentationForm::__replaceAmpersands($result);
 
 					if(!General::validateXML($result, $errors, false, new XsltProcess)){
 
