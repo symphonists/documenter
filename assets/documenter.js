@@ -4,16 +4,17 @@ jQuery(document).ready(function() {
 
 	var origheight = $(document).height();
 		
-	$("#doc_link").bind("click", function(e){
+	$(".closed").live("click", function(e){
 		e.preventDefault();
-		$("#docs").toggle("normal");
+		$(this).removeClass("closed").addClass("expanded");
+		$("#docs").show("normal");
+	}).mouseup(function(e){
+		$("form").css("height", $("#docs").height() + 160);
 	});
-	$("#doc_link").mouseup(function(){
-		if($("#docs").height() > origheight - 160){
-			$("form").css("height", $("#docs").height() + 160);
-		}
-		if($("form").height() > origheight){
-			$("form").css("class", "adjusted");
-		}
+	$(".expanded").live("click", function(e){
+		e.preventDefault();
+		$(this).removeClass("expanded").addClass("closed");
+		$("#docs").hide("normal");
+		$("form").css("height", origheight);
 	});
 });
