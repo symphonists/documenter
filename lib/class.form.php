@@ -176,17 +176,22 @@
 			if($validate === true){
 
 				include_once(TOOLKIT . '/class.xsltprocess.php');
-
-				if(!General::validateXML($result, $errors, false, new XsltProcess)){
-					$result = html_entity_decode($result, ENT_QUOTES, 'UTF-8');
+				
+				if($text_formatter == 'none'){
 					$result = DocumentationForm::__replaceAmpersands($result);
-
+				}
+				else {
 					if(!General::validateXML($result, $errors, false, new XsltProcess)){
+						$result = html_entity_decode($result, ENT_QUOTES, 'UTF-8');
+						$result = DocumentationForm::__replaceAmpersands($result);
 
-						$result = $formatter->run(General::sanitize($data));
-					
 						if(!General::validateXML($result, $errors, false, new XsltProcess)){
-							return false;
+
+							$result = $formatter->run(General::sanitize($data));
+					
+							if(!General::validateXML($result, $errors, false, new XsltProcess)){
+								return false;
+							}
 						}
 					}
 				}
