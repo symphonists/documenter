@@ -127,7 +127,7 @@
                 $navigation = $backend_page[1];
 
                 $listitem = new XMLElement('li', NULL, array('id' => 'doc_item'));
-                $link = Widget::Anchor($this->_Parent->Configuration->get('button-text', 'documentation'), '#', __('View Documentation'), 'closed', 'doc_link');
+                $link = Widget::Anchor($this->_Parent->Configuration->get('button-text', 'documentation'), '#', __('View Documentation'), 'docs-closed', 'doc_link');
                 $listitem->appendChild($link);
 
                 $docs = new XMLElement('div', NULL, array('id' => 'docs'));
