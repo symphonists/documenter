@@ -1,6 +1,4 @@
-jQuery(document).ready(function() {
-
-	$ = jQuery;
+jQuery(document).ready(function($) {
 
 	var origheight = $(document).height();
 		
