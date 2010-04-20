@@ -5,8 +5,8 @@
 		public function about() {
 			return array(
 				'name'			=> 'Documenter',
-				'version'		=> '0.9.7',
-				'release-date'	=> '2009-02-10',
+				'version'		=> '0.9.8',
+				'release-date'	=> '2010-04-20',
 				'author'		=> array(
 					'name'			=> 'craig zheng',
 					'email'			=> 'craig@symphony-cms.com'
