@@ -38,17 +38,60 @@ ul#nav li #doc_link:hover {
 	opacity: .9;
 	filter: alpha(opacity=90);
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
-	z-index: 2;
+	z-index: 2000;
 }
 
-#docs h2, h3, h4 {
+#docs a {
+	color: #d5d5c7;
+	display: inline;
+	padding: 0;
+	text-decoration: underline;
+}
+
+#docs a:hover {
+	color: #fff;
+	background: none;
+}
+
+#nav #docs ul {
+	display: block;
+	background: none;
+	border: none;
+	font-size: 100%;
+	position: relative;
+	top: 0;
+	left: 0;
+	line-height: 1.5;
+	list-style: disc inside;
+	margin-bottom: 1.5em;
+	-webkit-box-shadow: none;
+}
+
+#docs ol {
+	margin-left: 0;
+	list-style: decimal inside;
+}
+
+#docs h2, h3 {
 	text-shadow: none;
 	margin: 0 0 1em 0;
-	border:none;
-	padding: 0 0 1em;
+	border: none;
+	padding: 0 0 0.5em;
 }
 
 #docs h2 {border-bottom:1px solid #777;margin-top:19px;}
+
+#docs h3 {
+	border-bottom: 1px solid #777;
+	margin: 2em 0 1.5em 0;
+}
+
+#docs h4 {
+	text-shadow: none;
+/*	text-transform: uppercase;*/
+	margin: 0;
+	padding: 0;
+}
 
 #docs dt {font-weight: bold;}
 
