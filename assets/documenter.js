@@ -7,7 +7,9 @@ jQuery(document).ready(function($) {
 		$(this).removeClass("docs-closed").addClass("docs-expanded");
 		$("#docs").show("normal");
 	}).mouseup(function(e){
-		$("form").css("height", $("#docs").height() + 160);
+		if(origheight < $("#docs").height() + 160){
+			$("form").css("height", $("#docs").height() + 160);
+		}
 	});
 	$(".docs-expanded").live("click", function(e){
 		e.preventDefault();

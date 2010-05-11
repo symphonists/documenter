@@ -72,14 +72,14 @@ ul#nav li #doc_link:hover {
 	list-style: decimal inside;
 }
 
-#docs h2, h3 {
+#docs h1, #docs h2, #docs h3 {
 	text-shadow: none;
 	margin: 0 0 1em 0;
 	border: none;
 	padding: 0 0 0.5em;
 }
 
-#docs h2 {border-bottom:1px solid #777;margin-top:19px;}
+#docs h1, #docs h2 {border-bottom:1px solid #777;margin-top:19px;}
 
 #docs h3 {
 	border-bottom: 1px solid #777;
