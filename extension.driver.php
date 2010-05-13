@@ -61,9 +61,9 @@
 		public function appendDocs($context) {
 			$current_page = str_replace(URL . '/symphony', '', $context['parent']->Page->_Parent->getCurrentPageURL());
 
-			if (preg_match('/edit/',$current_page)){
+			if(preg_match('/edit/',$current_page)) {
 				$pos = strripos($current_page, '/edit/');
-				$current_page = substr($current_page,0,$pos + 6);
+				$current_page = substr($current_page, 0, $pos + 6);
 			}
 			$pages = $this->_Parent->Database->fetch("
 				SELECT
@@ -93,12 +93,12 @@
                 )
             );
 
-            $doc_items = array();
-
+			// Fetch documentation items 
+            $items = array();
 			foreach($pages as $page){
 				if(in_array($current_page,$page)) {
     				if(isset($page['id'])) {
-    					$doc_items[] = $this->_Parent->Database->fetchRow(0, "
+    					$items[] = $this->_Parent->Database->fetchRow(0, "
     						SELECT
     							d.title, d.content_formatted
     						FROM
@@ -108,7 +108,8 @@
                             LIMIT 1
                          ");
 
-                    } else {
+                    } 
+                    else {
                         ###
                         # Delegate: appendDocsPost
                         # Description: Allows other extensions to insert documentation for the $current_page
@@ -121,32 +122,40 @@
 				}
 			}
 
-            /* Allows a page to have more then one documentation source */
-            if(!empty($doc_items)) {
-                $backend_page = &$context['parent']->Page->Form->getChildren();
-                $navigation = $backend_page[1];
+            // Allows a page to have more then one documentation source
+            if(!empty($items)) {
+            
+            	// Get interface elements
+            	$form = $context['parent']->Page->Form;
+                $interface = $form->getChildren();
+                $navigation = $interface[1];
 
-                $listitem = new XMLElement('li', NULL, array('class' => 'docs'));
+				// Append help item
+                $help = new XMLElement('li', NULL, array('class' => 'docs'));
                 $link = Widget::Anchor($this->_Parent->Configuration->get('button-text', 'documentation'), '#', __('View Documentation'));
-                $listitem->appendChild($link);
+                $help->appendChild($link);
+                $navigation->appendChild($help);
 
+				// Generate documentation panel
                 $docs = new XMLElement('div', NULL, array('id' => 'docs'));
-
-                foreach($doc_items as $doc_item) {
-                    if(isset($doc_item['title'])) {
+                foreach($items as $item) {
+                
+                	// Add title
+                    if(isset($item['title'])) {
                         $docs->appendChild(
-                            new XMLElement('h2', $doc_item['title'])
+                            new XMLElement('h2', $item['title'])
                         );
                     }
 
+					// Add formatted help text
                     $docs->appendChild(
-                        new XMLElement('div', $doc_item['content_formatted'])
+                        new XMLElement('div', $item['content_formatted'])
                     );
 
-                    $listitem->appendChild($docs);
                 }
 
-                $navigation->appendChild($listitem);
+				// Append documentation
+	            $context['parent']->Page->Form->appendChild($docs);
             }
 		}
 
@@ -225,4 +234,5 @@
 			$group->appendChild($div);
 			$context['wrapper']->appendChild($group);
 		}
+		
 	}
