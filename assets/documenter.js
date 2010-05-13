@@ -11,7 +11,7 @@ jQuery(document).ready(function($) {
 		var target = $(event.target);
 		
 		// Close documentation
-		if(target.hasClass('expanded')) {
+		if(target.hasClass('active')) {
 			docs.fadeOut('normal');
 		}
 		
@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
 		}
 		
 		// Save current state
-		target.toggleClass('expanded');
+		target.toggleClass('active');
 		
 	});
 	
