@@ -19,7 +19,7 @@
 			return array(
 				array(
 					'location'	=> 'System',
-					'name'		=> 'Documentation',
+					'name'		=> __('Documentation'),
 					'link'		=> '/'
 				)
 			);
@@ -126,8 +126,8 @@
                 $backend_page = &$context['parent']->Page->Form->getChildren();
                 $navigation = $backend_page[1];
 
-                $listitem = new XMLElement('li', NULL, array('id' => 'doc_item'));
-                $link = Widget::Anchor($this->_Parent->Configuration->get('button-text', 'documentation'), '#', __('View Documentation'), 'docs-closed', 'doc_link');
+                $listitem = new XMLElement('li', NULL, array('class' => 'docs'));
+                $link = Widget::Anchor($this->_Parent->Configuration->get('button-text', 'documentation'), '#', __('View Documentation'));
                 $listitem->appendChild($link);
 
                 $docs = new XMLElement('div', NULL, array('id' => 'docs'));
@@ -168,7 +168,7 @@
 					PRIMARY KEY (`id`)
 				);");
 			Administration::instance()->Configuration->set('text-formatter', 'none', 'documentation');
-			Administration::instance()->Configuration->set('button-text', 'Help', 'documentation');
+			Administration::instance()->Configuration->set('button-text', __('Help'), 'documentation');
 			Administration::instance()->saveConfig();
 			return;
 		}
@@ -189,14 +189,14 @@
 
 			$group = new XMLElement('fieldset');
 			$group->setAttribute('class', 'settings');
-			$group->appendChild(new XMLElement('legend', 'Documentation'));
+			$group->appendChild(new XMLElement('legend', __('Documentation')));
 
 			$div = new XMLElement('div');
 			$div->setAttribute('class', 'group');
 
 		// Input for button text
 			$label = Widget::Label(__('Button Text'));
-			$input = Widget::Input('settings[documentation][button-text]', $this->_Parent->Configuration->get('button-text', 'documentation'), 'text');
+			$input = Widget::Input('settings[documentation][button-text]', __($this->_Parent->Configuration->get('button-text', 'documentation')), 'text');
 
 			$label->appendChild($input);
 			$div->appendChild($label);
