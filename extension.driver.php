@@ -84,79 +84,79 @@
 				}
 			}
 
-		    ###
-            # Delegate: appendDocsPre
+			###
+			# Delegate: appendDocsPre
 			# Description: Allow other extensions to add their own documentation page
 			Administration::instance()->ExtensionManager->notifyMembers('appendDocsPre',
-                '/backend/', array(
-                    'pages' => &$pages
-                )
-            );
+				'/backend/', array(
+					'pages' => &$pages
+				)
+			);
 
 			// Fetch documentation items 
-            $items = array();
+			$items = array();
 			foreach($pages as $page){
 				if(in_array($current_page,$page)) {
-    				if(isset($page['id'])) {
-    					$items[] = $this->_Parent->Database->fetchRow(0, "
-    						SELECT
-    							d.title, d.content_formatted
-    						FROM
-    							`tbl_documentation` AS d
+					if(isset($page['id'])) {
+						$items[] = $this->_Parent->Database->fetchRow(0, "
+							SELECT
+								d.title, d.content_formatted
+							FROM
+								`tbl_documentation` AS d
   							WHERE
-                                 d.id REGEXP '{$page['id']}'
-                            LIMIT 1
-                         ");
+								 d.id REGEXP '{$page['id']}'
+							LIMIT 1
+						 ");
 
-                    } 
-                    else {
-                        ###
-                        # Delegate: appendDocsPost
-                        # Description: Allows other extensions to insert documentation for the $current_page
-                        Administration::instance()->ExtensionManager->notifyMembers('appendDocsPost',
-                            '/backend/', array(
-                                'doc_item' => &$doc_items
-                            )
-                        );
-                    }
+					} 
+					else {
+						###
+						# Delegate: appendDocsPost
+						# Description: Allows other extensions to insert documentation for the $current_page
+						Administration::instance()->ExtensionManager->notifyMembers('appendDocsPost',
+							'/backend/', array(
+								'doc_item' => &$doc_items
+							)
+						);
+					}
 				}
 			}
 
-            // Allows a page to have more then one documentation source
-            if(!empty($items)) {
-            
-            	// Get interface elements
-            	$form = $context['parent']->Page->Form;
-                $interface = $form->getChildren();
-                $navigation = $interface[1];
+			// Allows a page to have more then one documentation source
+			if(!empty($items)) {
+			
+				// Get interface elements
+				$form = $context['parent']->Page->Form;
+				$interface = $form->getChildren();
+				$navigation = $interface[1];
 
 				// Append help item
-                $help = new XMLElement('li', NULL, array('class' => 'docs'));
-                $link = Widget::Anchor($this->_Parent->Configuration->get('button-text', 'documentation'), '#', __('View Documentation'));
-                $help->appendChild($link);
-                $navigation->appendChild($help);
+				$help = new XMLElement('li', NULL, array('class' => 'docs'));
+				$link = Widget::Anchor($this->_Parent->Configuration->get('button-text', 'documentation'), '#', __('View Documentation'));
+				$help->appendChild($link);
+				$navigation->appendChild($help);
 
 				// Generate documentation panel
-                $docs = new XMLElement('div', NULL, array('id' => 'docs'));
-                foreach($items as $item) {
-                
-                	// Add title
-                    if(isset($item['title'])) {
-                        $docs->appendChild(
-                            new XMLElement('h2', $item['title'])
-                        );
-                    }
+				$docs = new XMLElement('div', NULL, array('id' => 'docs'));
+				foreach($items as $item) {
+				
+					// Add title
+					if(isset($item['title'])) {
+						$docs->appendChild(
+							new XMLElement('h2', $item['title'])
+						);
+					}
 
 					// Add formatted help text
-                    $docs->appendChild(
-                        new XMLElement('div', $item['content_formatted'])
-                    );
+					$docs->appendChild(
+						new XMLElement('div', $item['content_formatted'])
+					);
 
-                }
+				}
 
 				// Append documentation
-	            $context['parent']->Page->Form->appendChild($docs);
-            }
+				$context['parent']->Page->Form->appendChild($docs);
+			}
 		}
 
 		public function uninstall() {
