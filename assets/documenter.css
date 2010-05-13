@@ -1,11 +1,15 @@
-ul#nav li#doc_item {
+ul#nav {
+	z-index: 2000;
+}
+
+ul#nav li.docs {
 	position: absolute;
 	right: 0;
 	margin: 0;
 	padding: 0;
 }
 
-ul#nav li #doc_link {
+ul#nav li.docs a {
 	position: relative;
 	padding: 0 1em;
 	height: 31px;
@@ -18,7 +22,7 @@ ul#nav li #doc_link {
 	text-decoration:none;
 }
 
-ul#nav li #doc_link:hover {
+ul#nav li.docs a:hover, ul#nav li.docs a.expanded {
 	background: #517ca6 url(../../../symphony/assets/images/navigation.png) repeat-x scroll 0 0;
 }
 
@@ -29,7 +33,7 @@ ul#nav li #doc_link:hover {
 	width: 400px;
 	background-color: #444;
 	color: #fff;
-	position: absolute; top: 31px; right: 0;
+	position: absolute; top: 30px; right: 0;
 	padding: 0 19px 19px 19px;
 	display: none;
 	-moz-border-radius-bottomleft:10px;
@@ -38,7 +42,11 @@ ul#nav li #doc_link:hover {
 	opacity: .9;
 	filter: alpha(opacity=90);
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
-	z-index: 2000;
+	z-index: 2100;
+}
+
+#docs div {
+	overflow: auto;
 }
 
 #docs a {

@@ -1,20 +1,42 @@
 jQuery(document).ready(function($) {
 
-	var origheight = $(document).height();
+	var button = $('li.docs a');
+	var docs = $('#docs');
+	var text = docs.find('div');
+	
+	// Show documentation
+	button.click(function(event) {
+	
+		event.preventDefault();
+		var target = $(event.target);
 		
-	$(".docs-closed").live("click", function(e){
-		e.preventDefault();
-		$(this).removeClass("docs-closed").addClass("docs-expanded");
-		$("#docs").show("normal");
-	}).mouseup(function(e){
-		if(origheight < $("#docs").height() + 160){
-			$("form").css("height", $("#docs").height() + 160);
+		// Close documentation
+		if(target.hasClass('expanded')) {
+			docs.fadeOut('normal');
 		}
+		
+		// Open documentation
+		else {
+			
+			// Set documentation height
+			$(window).resize();
+			
+			// Show documentation
+			docs.fadeIn('normal');
+		}
+		
+		// Save current state
+		target.toggleClass('expanded');
+		
 	});
-	$(".docs-expanded").live("click", function(e){
-		e.preventDefault();
-		$(this).removeClass("docs-expanded").addClass("docs-closed");
-		$("#docs").hide("normal");
-		$("form").css("height", origheight);
+	
+	// Adjust documentation height
+	$(window).resize(function(event) {
+		var height = $(document).height();
+		
+		// Set documentation height
+		docs.css('max-height', height - 125);
+		text.css('max-height', height - 250);
 	});
+
 });
