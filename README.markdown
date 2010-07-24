@@ -1,8 +1,8 @@
 # Documenter
 
-- Version: 0.9.8 (beta)
+- Version: 0.9.9 (beta)
 - Author: craig zheng
-- Build Date: 20th April 2010
+- Build Date: 23rd July 2010
 - Requirements: Symphony 2.0.4 or higher
 
 A Symphony extension enabling addition of documentation to any page in the back end, including user-defined section indexes and entry editors.
@@ -25,6 +25,7 @@ Documentation can be managed at `System > Documentation`. For each documentation
 
 ## Changelog
 
+- **0.9.9** UI overhaul
 - **0.9.8** Johanna's style improvements
 - **0.9.7** Fix conflict with Symphony's duplicator.js
 - **0.9.6** Fix page height issue; fix text validation; remove duplicate checking
@@ -34,3 +35,7 @@ Documentation can be managed at `System > Documentation`. For each documentation
 - **0.9.2** Made button text configurable, along with a few minor tweaks.
 - **0.9.1** Updated for compatibility with version of Symphony earlier than 2.0.7
 - **0.9** Initial release
+
+## Credits
+
+Documenter has benefitted from contributions by [Nils Hörrmann](http://nilshoerrmann.de/) and [Johanna Hörrmann](http://johannahoerrmann.de/), and uses Ben Alman's [jQuery resize event](http://benalman.com/projects/jquery-resize-plugin/).

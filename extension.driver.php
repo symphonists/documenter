@@ -5,8 +5,8 @@
 		public function about() {
 			return array(
 				'name'			=> 'Documenter',
-				'version'		=> '0.9.8',
-				'release-date'	=> '2010-04-20',
+				'version'		=> '0.9.9',
+				'release-date'	=> '2010-07-23',
 				'author'		=> array(
 					'name'			=> 'craig zheng',
 					'email'			=> 'craig@symphony-cms.com'
@@ -55,7 +55,8 @@
 			$assets_path = '/extensions/documenter/assets/';
 
 			$page->addStylesheetToHead(URL . $assets_path . 'documenter.css', 'screen', 120);
-			$page->addScriptToHead(URL . $assets_path . 'documenter.js', 110);
+			$page->addScriptToHead(URL . $assets_path . 'jquery.resize.js', 110);
+			$page->addScriptToHead(URL . $assets_path . 'documenter.js', 130);
 		}
 
 		public function appendDocs($context) {
@@ -143,19 +144,19 @@
 					// Add title
 					if(isset($item['title'])) {
 						$docs->appendChild(
-							new XMLElement('h2', $item['title'])
+							new XMLElement('h2', $item['title'], array('id' => 'docs-title'))
 						);
 					}
 
 					// Add formatted help text
 					$docs->appendChild(
-						new XMLElement('div', $item['content_formatted'])
+						new XMLElement('div', $item['content_formatted'], array('class' => 'docs-content'))
 					);
 
 				}
 
 				// Append documentation
-				$context['parent']->Page->Form->appendChild($docs);
+				$context['parent']->Page->Body->appendChild($docs);
 			}
 		}
 

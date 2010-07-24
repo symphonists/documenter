@@ -1,8 +1,8 @@
 jQuery(document).ready(function($) {
 
 	var button = $('li.docs a');
+	var text = $('li.docs a').text();
 	var docs = $('#docs');
-	var text = docs.find('div');
 	
 	// Show documentation
 	button.click(function(event) {
@@ -12,17 +12,20 @@ jQuery(document).ready(function($) {
 		
 		// Close documentation
 		if(target.hasClass('active')) {
-			docs.fadeOut('normal');
+			docs.children().hide();
+			docs.animate({
+				width: '0'
+				}, 'fast');
+			$(this).text(text).attr('title','View Documentation');
 		}
 		
 		// Open documentation
 		else {
-			
-			// Set documentation height
-			$(window).resize();
-			
-			// Show documentation
-			docs.fadeIn('normal');
+			docs.animate({
+				width: '300px'
+				}, 'fast');
+			docs.children().show();
+			$(this).text('X').attr('title', 'Hide Documentation');
 		}
 		
 		// Save current state
@@ -30,13 +33,10 @@ jQuery(document).ready(function($) {
 		
 	});
 	
-	// Adjust documentation height
-	$(window).resize(function(event) {
-		var height = $(document).height();
-		
-		// Set documentation height
-		docs.css('max-height', height - 125);
-		text.css('max-height', height - 250);
+	// When another JS event resizes the page, adjust docs height
+	$('form').resize(function(){
+		var height = $(this).height();
+		docs.css('height',height);
 	});
 
 });
