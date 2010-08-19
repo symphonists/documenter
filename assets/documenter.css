@@ -52,13 +52,29 @@ ul#nav li.docs a.active {
 #docs a:hover {color: #fff;}
 
 #docs ul {
-	list-style: disc inside;
-	margin: 0 0 1.5em 0;
+	list-style-type: disc;
 }
 
 #docs ol {
-	list-style: decimal inside;
+	list-style-type: none;
+	counter-reset: section;
+}
+
+#docs ol li {
+	counter-increment: section;
+}
+
+#docs ol li:before {
+	content: counters(section, ".") ". ";
+}
+
+#docs ul, #docs ol {
 	margin: 0 0 1.5em 0;
+	list-style-position: inside;
+}
+
+#docs ul ul, #docs ol ol {
+	margin-left: 1.5em;
 }
 
 #docs h1, #docs h2, #docs h3, #docs h4 {
