@@ -20,7 +20,8 @@
 				array(
 					'location'	=> 'System',
 					'name'		=> __('Documentation'),
-					'link'		=> '/'
+					'link'		=> '/',
+                                        'limit'         => 'developer',
 				)
 			);
 		}
