@@ -16,7 +16,7 @@
 			));
 		
 		// Grab all the documentation items
-			$docs = $this->_Parent->Database->fetch("
+			$docs = Symphony::Database()->fetch("
 				SELECT
 					d.*
 				FROM
@@ -65,7 +65,7 @@
 				Widget::TableHead($thead), null,
 				Widget::TableBody($tbody), null
 			);
-			
+			$table->setAttribute('class','selectable');
 			
 			$this->Form->appendChild($table);
 			

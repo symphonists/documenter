@@ -5,8 +5,8 @@
 		public function about() {
 			return array(
 				'name'			=> 'Documenter',
-				'version'		=> '0.9.9',
-				'release-date'	=> '2010-07-23',
+				'version'		=> '1.0RC1',
+				'release-date'	=> '2011-03-01',
 				'author'		=> array(
 					'name'			=> 'craig zheng',
 					'email'			=> 'craig@symphony-cms.com'
@@ -20,7 +20,8 @@
 				array(
 					'location'	=> 'System',
 					'name'		=> __('Documentation'),
-					'link'		=> '/'
+					'link'		=> '/',
+					'limit'		=> 'developer'
 				)
 			);
 		}
@@ -54,9 +55,9 @@
 			$page = $context['parent']->Page;
 			$assets_path = '/extensions/documenter/assets/';
 
-			$page->addStylesheetToHead(URL . $assets_path . 'documenter.css', 'screen', 120);
+			$page->addStylesheetToHead(URL . $assets_path . 'documenter.admin.css', 'screen', 120);
 			$page->addScriptToHead(URL . $assets_path . 'jquery.resize.js', 110);
-			$page->addScriptToHead(URL . $assets_path . 'documenter.js', 130);
+			$page->addScriptToHead(URL . $assets_path . 'documenter.admin.js', 130);
 		}
 
 		public function appendDocs($context) {
@@ -66,7 +67,7 @@
 				$pos = strripos($current_page, '/edit/');
 				$current_page = substr($current_page, 0, $pos + 6);
 			}
-			$pages = $this->_Parent->Database->fetch("
+			$pages = Symphony::Database()->fetch("
 				SELECT
 					d.pages, d.id
 				FROM
@@ -76,7 +77,7 @@
 			");
 
 			foreach($pages as $key => $value) {
-				if(strstr($value['pages'],',')){
+				if(strstr($value['pages'],',')) {
 					$list = explode(',',$value['pages']);
 					foreach($list as $item){
 						$pages[] = array('id' => $value['id'], 'page' => $item);
@@ -96,19 +97,18 @@
 
 			// Fetch documentation items 
 			$items = array();
-			foreach($pages as $page){
+			foreach($pages as $page) {
 				if(in_array($current_page,$page)) {
 					if(isset($page['id'])) {
-						$items[] = $this->_Parent->Database->fetchRow(0, "
+						$items[] = Symphony::Database()->fetchRow(0, "
 							SELECT
 								d.title, d.content_formatted
 							FROM
 								`tbl_documentation` AS d
   							WHERE
-								 d.id REGEXP '{$page['id']}'
+								 d.id = '{$page['id']}'
 							LIMIT 1
 						 ");
-
 					} 
 					else {
 						###
@@ -127,48 +127,52 @@
 			if(!empty($items)) {
 			
 				// Get interface elements
-				$form = $context['parent']->Page->Form;
-				$interface = $form->getChildren();
+				$header = $context['parent']->Page->Header;
+				$interface = $header->getChildren();
 				$navigation = $interface[1];
 
 				// Append help item
-				$help = new XMLElement('li', NULL, array('class' => 'docs'));
-				$link = Widget::Anchor($this->_Parent->Configuration->get('button-text', 'documentation'), '#', __('View Documentation'));
+				$help = new XMLElement('li', NULL, array('class' => 'documenter-button'));
+				$link = Widget::Anchor(
+					Symphony::Configuration()->get('button-text', 'documentation'),
+					'#',
+					__('View Documentation')
+				);
+				
 				$help->appendChild($link);
 				$navigation->appendChild($help);
 
 				// Generate documentation panel
-				$docs = new XMLElement('div', NULL, array('id' => 'docs'));
+				$docs = new XMLElement('div', NULL, array('id' => 'documenter-drawer'));
 				foreach($items as $item) {
 				
 					// Add title
 					if(isset($item['title'])) {
 						$docs->appendChild(
-							new XMLElement('h2', $item['title'], array('id' => 'docs-title'))
+							new XMLElement('h2', $item['title'], array('id' => 'documenter-title'))
 						);
 					}
 
 					// Add formatted help text
 					$docs->appendChild(
-						new XMLElement('div', $item['content_formatted'], array('class' => 'docs-content'))
+						new XMLElement('div', $item['content_formatted'], array('class' => 'documenter-content'))
 					);
 
 				}
-
 				// Append documentation
 				$context['parent']->Page->Body->appendChild($docs);
 			}
 		}
 
 		public function uninstall() {
-			$this->_Parent->Database->query("DROP TABLE `tbl_documentation`;");
-			Administration::instance()->Configuration->remove('text-formatter', 'documentation');
-			Administration::instance()->Configuration->remove('button-text', 'documentation');
+			Symphony::Database()->query("DROP TABLE `tbl_documentation`;");
+			Symphony::Configuration()->remove('text-formatter', 'documentation');
+			Symphony::Configuration()->remove('button-text', 'documentation');
 			Administration::instance()->saveConfig();
 		}
 
 		public function install() {
-			$this->_Parent->Database->query(
+			Symphony::Database()->query(
 				"CREATE TABLE `tbl_documentation` (
 					`id` int(11) unsigned NOT NULL auto_increment,
 					`title` varchar(255),
@@ -177,23 +181,23 @@
 					`content_formatted` text,
 					PRIMARY KEY (`id`)
 				);");
-			Administration::instance()->Configuration->set('text-formatter', 'none', 'documentation');
-			Administration::instance()->Configuration->set('button-text', __('Help'), 'documentation');
+			Symphony::Configuration()->set('text-formatter', 'none', 'documentation');
+			Symphony::Configuration()->set('button-text', __('Help'), 'documentation');
 			Administration::instance()->saveConfig();
 			return;
 		}
 
-		public function __SavePreferences($context){
+		public function __SavePreferences($context) {
 
 			if(!is_array($context['settings'])) $context['settings'] = array('documentation' => array('text-formatter' => 'none'));
 
-			elseif(!isset($context['settings']['documentation'])){
+			elseif(!isset($context['settings']['documentation'])) {
 				$context['settings']['documentation'] = array('text-formatter' => 'none');
 			}
 
 		}
 
-		public function appendPreferences($context){
+		public function appendPreferences($context) {
 
 			include_once(TOOLKIT . '/class.textformattermanager.php');
 
@@ -206,7 +210,11 @@
 
 		// Input for button text
 			$label = Widget::Label(__('Button Text'));
-			$input = Widget::Input('settings[documentation][button-text]', __($this->_Parent->Configuration->get('button-text', 'documentation')), 'text');
+			$input = Widget::Input(
+				'settings[documentation][button-text]',
+				__($this->_Parent->Configuration->get('button-text', 'documentation')),
+				'text'
+			);
 
 			$label->appendChild($input);
 			$div->appendChild($label);
@@ -221,9 +229,12 @@
 
 			$options[] = array('none', false, __('None'));
 
-			if(!empty($formatters) && is_array($formatters)){
+			if(!empty($formatters) && is_array($formatters)) {
 				foreach($formatters as $handle => $about) {
-					$options[] = array($handle, ($this->_Parent->Configuration->get('text-formatter', 'documentation') == $handle), $about['name']);
+					$options[] = array(
+						$handle,
+						(Symphony::Configuration()->get('text-formatter', 'documentation') == $handle),
+						$about['name']);
 				}
 			}
 

@@ -11,17 +11,20 @@
 		
 		function action() {
 			$doc_id = $this->_context[0];
+			
+			// Delete action
 			if (@array_key_exists('delete', $_POST['action'])) {
 				$page = $this->_Parent->Database->fetchRow(0, "SELECT * FROM tbl_documentation WHERE `id` = '$doc_id'");
 				$this->_Parent->Database->delete('tbl_documentation', " `id` = '$doc_id'");
 				redirect(URL . '/symphony/extension/documenter/');
 			}
 			
+			// Save action
 			if(@array_key_exists('save', $_POST['action'])){
 			
 				$this->_errors = array();
 
-			// Polish up some field content
+				// Polish up some field content
 				$fields = $_POST['fields'];
 				
 				if(isset($fields['pages'])) {

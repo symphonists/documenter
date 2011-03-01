@@ -11,7 +11,7 @@
 			if ($this->_context[0]) {
 				if (!$doc_id = $this->_context[0]) redirect(URL . '/symphony/extension/documenter/manage');
 				
-				$existing = $this->_Parent->Database->fetchRow(0, "
+				$existing = Symphony::Database()->fetchRow(0, "
 					SELECT
 						d.*
 					FROM
@@ -95,7 +95,7 @@
 			$label = Widget::Label(__('Content'));
 			
 			$content = Widget::Textarea('fields[content]', 30, 80, $fields['content']);
-			if(Administration::instance()->Configuration->get('text-formatter', 'documentation') != 'none') $content->setAttribute('class', Administration::instance()->Configuration->get('text-formatter', 'documentation'));
+			if(Symphony::Configuration()->get('text-formatter', 'documentation') != 'none') $content->setAttribute('class', Symphony::Configuration()->get('text-formatter', 'documentation'));
 			
 			$label->appendChild($content);
 			$fieldset->appendChild((isset($this->_errors['content']) ? $this->wrapFormElementWithError($label, $this->_errors['content']) : $label));
@@ -104,6 +104,7 @@
 			
 		// Pages multi-select
 			$fieldset = new XMLElement('fieldset');
+			$fieldset->setAttribute('class', 'secondary');
 			$label = Widget::Label(__('Pages'));
 			
 			if(!is_array($fields['pages'])){
@@ -130,7 +131,7 @@
 				$options[] = array('label' => $menu['name'], 'options' => $items);
 			}
 			
-			$label->appendChild(Widget::Select('fields[pages][]', $options, array('multiple' => 'multiple', 'id' => 'pagelist')));
+			$label->appendChild(Widget::Select('fields[pages][]', $options, array('multiple' => 'multiple', 'id' => 'documenter-pagelist')));
 			
 			if (isset($this->_errors['pages'])) {
 				$label = $this->wrapFormElementWithError($label, $this->_errors['pages']);
@@ -162,7 +163,7 @@
 		
 			include_once(TOOLKIT . '/class.textformattermanager.php');
 		
-			$text_formatter = Administration::instance()->Configuration->get('text-formatter', 'documentation');
+			$text_formatter = Symphony::Configuration()->get('text-formatter', 'documentation');
 	
 			if($text_formatter != 'none'){
 				$tfm = new TextformatterManager($this->_Parent);
