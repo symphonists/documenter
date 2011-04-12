@@ -43,10 +43,10 @@ var Documenter = {
 		});
 	
 		// When another JS event resizes the page, adjust docs height
-		jQuery('body').resize(function(){
-			var height = jQuery(this).height();
-			docs.css('height',height);
-		});
+//		jQuery('body').resize(function(){
+//			var height = jQuery(this).height();
+//			docs.css('height',height);
+//		});
 	}
 }
 
