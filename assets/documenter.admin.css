@@ -35,7 +35,36 @@ ul#nav li.documenter-button a:hover {
 }
 
 ul#nav li.documenter-button a.active {
-	background: #151510;
+/*	background: #383834;*/
+	display: none;
+}
+
+/*================================================
+	"HIDE"-BUTTON
+================================================*/
+
+#documenter-drawer a.button {
+	position: absolute;
+	top: 23px;
+	right: 19px;
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.7);
+	height: 11px;
+	width: 11px;
+	line-height: 0.5;
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	padding: 3px 0 0 3px;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+	font-size: 10px;
+}
+
+#documenter-drawer a.button:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+	border-color: rgba(0, 0, 0, 0.8);
+	color: #fff;
 }
 
 /*================================================
@@ -43,19 +72,24 @@ ul#nav li.documenter-button a.active {
 ================================================*/
 
 #documenter-drawer {
-	float:right;
+	float: right;
 	font: 100%/1.5 Lucida Grande,Leelawadee,Tahoma,Verdana,sans-serif;
 	white-space: normal;
 	text-transform: none;
-	width: 0; height: 100%;
-	background-color: #151510;
+	width: 0; 
+/*	height: 100%;*/
+	background-color: rgba(46, 46, 42, 0.95);
+	text-shadow: -1px 2px 3px rgba(39, 39, 38, 0.5);
 	color: #fff;
 	padding: 0;
-	overflow: auto;
+/*	overflow: auto;*/
+	border-left: 1px solid rgba(46, 46, 42, 0.7);
 }
 
-#documenter-drawer h2#documenter-title, .documenter-content {
-	margin: 19px;
+#documenter-drawer .documenter-content {
+	margin: 0 19px 19px;
+	border-top: 1px solid rgba(219, 219, 219, 0.1);
+	padding: 19px 0 0;
 }
 
 #documenter-drawer a {
@@ -71,25 +105,27 @@ ul#nav li.documenter-button a.active {
 	DRAWER HEADINGS
 ================================================*/
 
-#documenter-drawer h1, #documenter-drawer h2, #documenter-drawer h3, #documenter-drawer h4 {
-	text-shadow: none;
-	border: none;
+#documenter-drawer h2, #documenter-drawer h3, #documenter-drawer h4 {
+	text-shadow: -1px 2px 3px rgba(39,39,38,0.5);
 	background: transparent;
 }
 
-#documenter-drawer h1, #documenter-drawer h2 {
-	border-bottom: 1px solid #333;
-	margin: 17px 0 1em;
-	padding: 0 0 1em;
+#documenter-drawer h2 {
+	margin: 21px 19px 17px;
+	border: none;
+	padding: 0 25px 0 0;
 }
 
 #documenter-drawer h3 {
-	border-bottom: 1px solid #333;
 	margin: 2em 0 1em 0;
 	padding: 0 0 0.5em;
+	border-bottom: 1px solid rgba(219,219,219,0.1);
 }
 
-#documenter-drawer h4 {margin: 0;}
+#documenter-drawer h4 {
+	margin: 0;
+	border: none;
+}
 
 /*================================================
 	DRAWER LISTS 

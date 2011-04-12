@@ -9,6 +9,9 @@ var Documenter = {
 		var button = jQuery('li.documenter-button a');
 		var text = jQuery('li.documenter-button a').text();
 		var docs = jQuery('#documenter-drawer');
+		
+		// Add close button
+		jQuery('<a class="button">×</a>').attr('title', 'Hide Documentation').appendTo(jQuery('#documenter-title'));
 
 		// Show documentation
 		button.click(function(event) {
@@ -31,7 +34,7 @@ var Documenter = {
 					width: '300px'
 					}, 'fast');
 				docs.children().show();
-				jQuery(this).text('X').attr('title', 'Hide Documentation');
+				jQuery(this).text('×').attr('title', 'Hide Documentation');
 			}
 		
 			// Save current state
