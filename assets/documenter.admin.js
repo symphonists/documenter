@@ -12,7 +12,13 @@
 		var wrapper = $('#wrapper'),
 			title = $('#documenter-title'),
 			button = $('#header a.documenter.button'),
-			docs = $('#documenter-drawer');
+			docs = $('#documenter-drawer'),
+			notice = $('#notice');
+			
+		// Check for system messages
+		if(notice.is(':visible')) {
+			docs.addClass('notice');
+		}
 		
 		// Toggle documentation
 		button.click(function(event) {
