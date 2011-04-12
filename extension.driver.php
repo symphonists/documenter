@@ -56,7 +56,6 @@
 			$assets_path = '/extensions/documenter/assets/';
 
 			$page->addStylesheetToHead(URL . $assets_path . 'documenter.admin.css', 'screen', 120);
-			$page->addScriptToHead(URL . $assets_path . 'jquery.resize.js', 110);
 			$page->addScriptToHead(URL . $assets_path . 'documenter.admin.js', 130);
 		}
 
@@ -129,18 +128,11 @@
 				// Get interface elements
 				$header = $context['parent']->Page->Header;
 				$interface = $header->getChildren();
-				$navigation = $interface[1];
+				$title = $interface[0];
 
 				// Append help item
-				$help = new XMLElement('li', NULL, array('class' => 'documenter-button'));
-				$link = Widget::Anchor(
-					Symphony::Configuration()->get('button-text', 'documentation'),
-					'#',
-					__('View Documentation')
-				);
-				
-				$help->appendChild($link);
-				$navigation->appendChild($help);
+				$help = new XMLElement('a', Symphony::Configuration()->get('button-text', 'documentation'), array('class' => 'documenter button', 'title' => __('View Documentation')));
+				$title->appendChild($help);
 
 				// Generate documentation panel
 				$docs = new XMLElement('div', NULL, array('id' => 'documenter-drawer'));
@@ -182,7 +174,7 @@
 					PRIMARY KEY (`id`)
 				);");
 			Symphony::Configuration()->set('text-formatter', 'none', 'documentation');
-			Symphony::Configuration()->set('button-text', __('Help'), 'documentation');
+			Symphony::Configuration()->set('button-text', __('Need help?'), 'documentation');
 			Administration::instance()->saveConfig();
 			return;
 		}

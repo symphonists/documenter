@@ -1,5 +1,17 @@
+body {
+	background: rgba(46, 46, 42, 1);
+}
+
 #wrapper { 
-	overflow:hidden;
+	overflow: hidden;
+	background: #fff;
+}
+
+#wrapper.documenter {
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+	border-right: 1px solid rgba(0, 0, 0, 0.8);
 }
 
 #documenter-pagelist {
@@ -10,33 +22,31 @@
 	BUTTON
 ================================================*/
 
-ul#nav li.documenter-button {
-	position: absolute;
-	right: 0;
-	margin: 0;
-	padding: 0;
-}
-
-ul#nav li.documenter-button a {
+#header h1 {
 	position: relative;
-	padding: 0 1em;
-	height: 31px;
-	line-height: 31px;
-	color: #fff;
-	background: #7E7E70 url(../../../symphony/assets/images/navigation.png) repeat-x scroll 0 -30px;
-	z-index: 10;
-	font-weight:bold;
-	text-transform: uppercase;
-	text-decoration:none;
 }
 
-ul#nav li.documenter-button a:hover {
-	background: #517ca6 url(../../../symphony/assets/images/navigation.png) repeat-x scroll 0 0;
+#header a.documenter.button {
+	position: absolute;
+	top: 16px;
+	right: 19px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	color: rgba(255, 255, 255, 0.8);
+	border-radius: 3px;
+	background: none;
+	font-weight: normal;
+	font-size: 12px;
 }
 
-ul#nav li.documenter-button a.active {
-/*	background: #383834;*/
-	display: none;
+#header a.documenter.button.active {
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	color: rgba(255, 255, 255, 0.5);
+}
+
+#header a.documenter.button:hover {
+	border: 1px solid rgba(255, 255, 255, 0.35);
+	color: rgba(255, 255, 255, 1);
+	background: rgba(0,0,0, 0.15);
 }
 
 /*================================================
@@ -57,13 +67,13 @@ ul#nav li.documenter-button a.active {
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	padding: 3px 0 0 3px;
-	border: 1px solid rgba(0, 0, 0, 0.25);
+	border: 1px solid rgba(46, 46, 42, 0.7);
 	font-size: 10px;
 }
 
 #documenter-drawer a.button:hover {
 	background-color: rgba(0, 0, 0, 0.8);
-	border-color: rgba(0, 0, 0, 0.8);
+	border-color: rgba(219, 219, 219, 0.1);
 	color: #fff;
 }
 
@@ -72,18 +82,17 @@ ul#nav li.documenter-button a.active {
 ================================================*/
 
 #documenter-drawer {
+	z-index: 0;
 	float: right;
 	font: 100%/1.5 Lucida Grande,Leelawadee,Tahoma,Verdana,sans-serif;
 	white-space: normal;
 	text-transform: none;
-	width: 0; 
-/*	height: 100%;*/
-	background-color: rgba(46, 46, 42, 0.95);
+	width: 0;
+	display: block;
 	text-shadow: -1px 2px 3px rgba(39, 39, 38, 0.5);
 	color: #fff;
 	padding: 0;
-/*	overflow: auto;*/
-	border-left: 1px solid rgba(46, 46, 42, 0.7);
+	overflow: hidden;
 }
 
 #documenter-drawer .documenter-content {

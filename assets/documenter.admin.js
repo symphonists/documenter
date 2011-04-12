@@ -1,55 +1,83 @@
-Symphony.Language.add({
-	'View Documentation': false,
-	'Hide Documentation': false
-});
 
-var Documenter = {
-	
-	init: function() {
-		var button = jQuery('li.documenter-button a');
-		var text = jQuery('li.documenter-button a').text();
-		var docs = jQuery('#documenter-drawer');
+(function($) {
+
+	// Language strings
+	Symphony.Language.add({
+		'Need help?': false,
+		'Close help': false
+	});
+
+	// Documenter
+	$(document).ready(function() {
+		var wrapper = $('#wrapper'),
+			title = $('#documenter-title'),
+			button = $('#header a.documenter.button'),
+			docs = $('#documenter-drawer');
 		
-		// Add close button
-		jQuery('<a class="button">×</a>').attr('title', 'Hide Documentation').appendTo(jQuery('#documenter-title'));
-
-		// Show documentation
+		// Toggle documentation
 		button.click(function(event) {
 			
-			event.preventDefault();
-			var target = jQuery(event.target);
-		
-			// Close documentation
-			if(target.hasClass('active')) {
-				docs.children().hide();
+			// Hide documentation
+			if(button.is('.active')) {
 				docs.animate({
-					width: '0'
-					}, 'fast');
-				jQuery(this).text(text).attr('title','View Documentation');
+					width: 0,
+					overflow: 'hidden'
+				}, 'fast', function() {
+					
+					// Switch label
+					if(button.text() == Symphony.Language.get('Close help')) {
+						button.text(Symphony.Language.get('Need help?'));
+					}
+				});
+				
+				// Store state
+				wrapper.removeClass('documenter');
+				button.removeClass('active');
+				if(localStorage) {
+					localStorage.removeItem('documenter-' + Symphony.Context.get('root'));
+				}
 			}
-		
-			// Open documentation
+			
+			// Show documentation
 			else {
 				docs.animate({
-					width: '300px'
-					}, 'fast');
-				docs.children().show();
-				jQuery(this).text('×').attr('title', 'Hide Documentation');
+					width: 300,
+					overflow: 'auto'
+				}, 'fast', function() {
+					
+					// Switch label
+					if(button.text() == Symphony.Language.get('Need help?')) {
+						button.text(Symphony.Language.get('Close help'));
+					}
+				});	
+				
+				// Store state
+				wrapper.addClass('documenter');
+				button.addClass('active');
+				if(localStorage) {
+					localStorage.setItem('documenter-' + Symphony.Context.get('root'), 'active');
+				}
 			}
-		
-			// Save current state
-			target.toggleClass('active');
-		
 		});
-	
-		// When another JS event resizes the page, adjust docs height
-//		jQuery('body').resize(function(){
-//			var height = jQuery(this).height();
-//			docs.css('height',height);
-//		});
-	}
-}
+		
+		// Restore documentation state
+		if(localStorage) {
+			if(localStorage.getItem('documenter-' + Symphony.Context.get('root')) == 'active') {
+				docs.css({
+					width: 300,
+					overflow: 'auto'
+				});
+				
+				// Store state
+				wrapper.addClass('documenter');
+				button.addClass('active');
+				
+				// Switch label
+				if(button.text() == Symphony.Language.get('Get help?')) {
+					button.text(Symphony.Language.get('Close help'));
+				}
+			}
+		}	
+	});
 
-jQuery(document).ready(function(){
-	Documenter.init();
-});
+})(jQuery.noConflict());	
