@@ -7,13 +7,22 @@
 		'Hide Documentation': false
 	});
 
-	// Documenter
+	/**
+	 * A Symphony extension enabling addition of documentation 
+	 * to any page in the back end, including user-defined 
+	 * section indexes and entry editors.
+	 *
+	 * @author: Craig Zheng, https://github.com/czheng
+	 * 			rewritten by Nils Hörrmann, post@nilshoerrmann.de
+	 * @source: https://github.com/czheng/documenter
+	 */
 	$(document).ready(function() {
 		var wrapper = $('#wrapper'),
 			title = $('#documenter-title'),
 			button = $('a.documenter.button'),
 			help = button.text(),
-			drawer = $('#documenter-drawer');
+			drawer = $('#documenter-drawer'),
+			content = drawer.children();
 								
 	/*---- Events -----------------------------------------------------------*/
 		
@@ -27,6 +36,7 @@
 			
 			// Show documentation
 			else {
+				button.fadeOut('fast');
 				show('fast');
 			}
 		});
@@ -43,13 +53,21 @@
 		
 		// Show documentation
 		var show = function(speed) {
-			button.fadeOut('fast');
 			
 			// Open drawer
 			drawer.animate({
 				width: 300,
-				overflow: 'auto'
+				overflow: 'auto',
+				opacity: 1
 			}, speed, function() {
+				var height = drawer.outerHeight();
+					
+				// Set minimum height
+				wrapper.animate({
+					'height': height
+				}, 'fast');
+			
+				// Set state
 				wrapper.addClass('documenter');
 				button.text('×').attr('title', Symphony.Language.get('Hide Documentation')).addClass('active').fadeIn('fast');			
 			});	
@@ -67,8 +85,17 @@
 			// Close drawer
 			drawer.animate({
 				width: 0,
-				overflow: 'hidden'
+				overflow: 'hidden',
+				opacity: 0.3
 			}, 'fast', function() {
+			
+				// Set minimum height
+				wrapper.css({
+					'min-height': '100%',
+					height: 'auto'
+				});
+			
+				// Set state
 				wrapper.removeClass('documenter');
 				button.text(help).attr('title', Symphony.Language.get('View Documentation')).removeClass('active');
 			});
@@ -107,6 +134,9 @@
 			if(localStorage.getItem('documenter-' + Symphony.Context.get('root')) == 'active') {
 				show(0);
 			}
+		}
+		else {
+			hide(0);
 		}
 		
 	});
