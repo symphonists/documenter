@@ -60,7 +60,7 @@
 				overflow: 'auto',
 				opacity: 1
 			}, speed, function() {
-				var height = drawer.outerHeight();
+				var height = Math.max(drawer.outerHeight(), $('body').height());
 					
 				// Set minimum height
 				wrapper.css({
@@ -91,8 +91,7 @@
 			
 				// Set minimum height
 				wrapper.css({
-					'min-height': '100%',
-					height: 'auto'
+					'min-height': '100%'
 				});
 			
 				// Set state
