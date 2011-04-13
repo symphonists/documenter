@@ -60,9 +60,12 @@
 				overflow: 'auto',
 				opacity: 1
 			}, speed, function() {
-				var height = Math.max(drawer.outerHeight(), $('body').height());
+				var height = drawer.outerHeight();
 					
 				// Set minimum height
+				if(height < $('body').height()) {
+					height = '100%';
+				}
 				wrapper.css({
 					'min-height': height
 				});
