@@ -89,6 +89,13 @@ a.documenter.button:hover {
 	width: 262px;
 }
 
+#documenter-drawer h2#documenter-title {
+	margin: 21px 19px 1.2em;
+	border: none;
+	padding: 0 25px 0 0;
+	width: 256px;
+}
+
 #documenter-drawer a {
 	color: #d5d5c7;
 	text-decoration: underline;
@@ -102,22 +109,20 @@ a.documenter.button:hover {
 	DRAWER HEADINGS
 ================================================*/
 
-#documenter-drawer h2, #documenter-drawer h3, #documenter-drawer h4 {
+#documenter-drawer h1, #documenter-drawer h2, #documenter-drawer h3, #documenter-drawer h4 {
 	text-shadow: -1px 2px 3px rgba(39,39,38,0.5);
 	background: transparent;
+	border-bottom: 1px solid rgba(219,219,219,0.1);
 }
 
-#documenter-drawer h2 {
-	margin: 21px 19px 17px;
-	border: none;
-	padding: 0 25px 0 0;
-	width: 256px;
+#documenter-drawer h2, #documenter-drawer h1 {
+	margin: 2em 0 1.7em 0;
+	padding: 0 0 1.2em 0;
 }
 
 #documenter-drawer h3 {
 	margin: 2em 0 1em 0;
 	padding: 0 0 0.5em;
-	border-bottom: 1px solid rgba(219,219,219,0.1);
 }
 
 #documenter-drawer h4 {
