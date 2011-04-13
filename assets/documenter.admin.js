@@ -63,9 +63,9 @@
 				var height = drawer.outerHeight();
 					
 				// Set minimum height
-				wrapper.animate({
-					'height': height
-				}, 'fast');
+				wrapper.css({
+					'min-height': height
+				});
 			
 				// Set state
 				wrapper.addClass('documenter');
