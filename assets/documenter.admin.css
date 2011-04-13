@@ -36,7 +36,8 @@ a.documenter.button {
 /*	font-size: 12px;*/
 	font-size: 11px;
 
-	border: 1px solid rgba(46, 46, 42, 0.7);
+/*	border: 1px solid rgba(46, 46, 42, 0.7);*/
+	border: 1px solid rgba(186, 192, 179, 0.2);
 	background: rgba(0, 0, 0, 0.2);
 	color: rgba(255, 255, 255, 0.7);
 	z-index: 2000;
@@ -57,13 +58,13 @@ a.documenter.button.active {
 /*	height: 11px;
 	width: 11px;*/
 	height: 15px;
-	width: 15px;	
-	line-height: 0.5;
+	width: 13px;	
+	line-height: 0.8;
 	background: rgba(0, 0, 0, 0.2);
-	border-radius: 8px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	padding: 3px 0 0 3px;
+	border-radius: 1em;
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+	padding: 3px 0 0 5px;
 	border: 1px solid rgba(46, 46, 42, 0.7);
 /*	font-size: 10px;*/
 	font-size: 11px;
@@ -77,13 +78,16 @@ a.documenter.button:hover {
 	background-color: rgba(0, 0, 0, 0.8);
 	border-color: rgba(219, 219, 219, 0.1);
 	color: #fff;
+	
+/*	border: 1px solid #373834;*/
+	
 }
 
 /*================================================
 	"HIDE"-BUTTON
 ================================================*/
 
-#documenter-drawer a.button {
+/*#documenter-drawer a.button {
 	position: absolute;
 	top: 23px;
 	right: 19px;
@@ -105,7 +109,7 @@ a.documenter.button:hover {
 	background-color: rgba(0, 0, 0, 0.8);
 	border-color: rgba(219, 219, 219, 0.1);
 	color: #fff;
-}
+}*/
 
 /*================================================
 	DRAWER DEFAULTS
@@ -129,6 +133,7 @@ a.documenter.button:hover {
 	margin: 0 19px 19px;
 	border-top: 1px solid rgba(219, 219, 219, 0.1);
 	padding: 19px 0 0;
+	width: 300px;
 }
 
 #documenter-drawer a {
@@ -153,6 +158,7 @@ a.documenter.button:hover {
 	margin: 21px 19px 17px;
 	border: none;
 	padding: 0 25px 0 0;
+	width: 275px;
 }
 
 #documenter-drawer h3 {
