@@ -124,15 +124,10 @@
 
 			// Allows a page to have more then one documentation source
 			if(!empty($items)) {
-			
-				// Get interface elements
-				$header = $context['parent']->Page->Header;
-				$interface = $header->getChildren();
-				$title = $interface[0];
 
 				// Append help item
 				$help = new XMLElement('a', Symphony::Configuration()->get('button-text', 'documentation'), array('class' => 'documenter button', 'title' => __('View Documentation')));
-				$title->appendChild($help);
+				$context['parent']->Page->Body->appendChild($help);
 
 				// Generate documentation panel
 				$docs = new XMLElement('div', NULL, array('id' => 'documenter-drawer'));

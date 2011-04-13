@@ -56,6 +56,9 @@
 		'Der aufgerufene Dokumentationseintrag existiert nicht. ',
 
 		'View Documentation' => 
-		'Dokumentation anzeigen',
+		'Dokumentation einblenden',
+		
+		'Hide Documentation' =>
+		'Dokumentation ausblenden'
 
 	);

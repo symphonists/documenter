@@ -3,15 +3,16 @@
 
 	// Language strings
 	Symphony.Language.add({
-		'Need help?': false,
-		'Close help': false
+		'View Documentation': false,
+		'Hide Documentation': false
 	});
 
 	// Documenter
 	$(document).ready(function() {
 		var wrapper = $('#wrapper'),
 			title = $('#documenter-title'),
-			button = $('#header a.documenter.button'),
+			button = $('a.documenter.button'),
+			help = button.text(),
 			docs = $('#documenter-drawer'),
 			notice = $('#notice');
 			
@@ -28,17 +29,11 @@
 				docs.animate({
 					width: 0,
 					overflow: 'hidden'
-				}, 'fast', function() {
-					
-					// Switch label
-					if(button.text() == Symphony.Language.get('Close help')) {
-						button.text(Symphony.Language.get('Need help?'));
-					}
-				});
+				}, 'fast');
 				
 				// Store state
 				wrapper.removeClass('documenter');
-				button.removeClass('active');
+				button.text(help).attr('title', Symphony.Language.get('View Documentation')).removeClass('active');
 				if(localStorage) {
 					localStorage.removeItem('documenter-' + Symphony.Context.get('root'));
 				}
@@ -49,17 +44,11 @@
 				docs.animate({
 					width: 300,
 					overflow: 'auto'
-				}, 'fast', function() {
-					
-					// Switch label
-					if(button.text() == Symphony.Language.get('Need help?')) {
-						button.text(Symphony.Language.get('Close help'));
-					}
-				});	
+				}, 'fast');	
 				
 				// Store state
 				wrapper.addClass('documenter');
-				button.addClass('active');
+				button.text('×').attr('title', Symphony.Language.get('Hide Documentation')).addClass('active');
 				if(localStorage) {
 					localStorage.setItem('documenter-' + Symphony.Context.get('root'), 'active');
 				}
@@ -76,12 +65,7 @@
 				
 				// Store state
 				wrapper.addClass('documenter');
-				button.addClass('active');
-				
-				// Switch label
-				if(button.text() == Symphony.Language.get('Get help?')) {
-					button.text(Symphony.Language.get('Close help'));
-				}
+				button.text('×').attr('title', Symphony.Language.get('Hide Documentation')).addClass('active');
 			}
 		}	
 	});
