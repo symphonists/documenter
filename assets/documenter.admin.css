@@ -1,6 +1,16 @@
+/**
+ * A Symphony extension enabling addition of documentation 
+ * to any page in the back end, including user-defined 
+ * section indexes and entry editors.
+ *
+ * @author: Craig Zheng, https://github.com/czheng
+ * 			additions by Johanna Hörrmann, huhu@johannahoerrmann.de
+ *          and by Nils Hörrmann, post@nilshoerrmann.de
+ * @source: https://github.com/czheng/documenter
+ */
+
 body {
 	background: rgba(46, 46, 42, 1);
-/*	background-color: #353530;*/
 }
 
 #wrapper { 
@@ -12,7 +22,6 @@ body {
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 	-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 	-moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-/*	border-right: 1px solid rgba(0, 0, 0, 0.8);*/
 }
 
 #documenter-pagelist {
@@ -27,89 +36,33 @@ a.documenter.button {
 	position: absolute;
 	top: 16px;
 	right: 19px;
-/*	border: 1px solid rgba(255, 255, 255, 0.2);*/
-/*	color: rgba(255, 255, 255, 0.8);*/
-/*	border-radius: 3px;*/
 	border-radius: 1em;
-	background: none;
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
 	font-weight: normal;
-/*	font-size: 12px;*/
 	font-size: 11px;
-
-/*	border: 1px solid rgba(46, 46, 42, 0.7);*/
 	border: 1px solid rgba(186, 192, 179, 0.2);
-	background: rgba(0, 0, 0, 0.2);
+	background: #2a2a26;
 	color: rgba(255, 255, 255, 0.7);
+	text-decoration: none;
 	z-index: 2000;
 }
 
 a.documenter.button.active {
-/*	border: 1px solid rgba(255, 255, 255, 0.2);*/
-	color: rgba(255, 255, 255, 0.5);
-	
+	border: 1px solid rgba(155, 155, 155, 0.2);
 	position: absolute;
-/*	top: 23px;
-	right: 19px;*/
 	top: 16px;
 	right: 19px;
-	
-	text-decoration: none;
-/*	color: rgba(255, 255, 255, 0.7);*/
-/*	height: 11px;
-	width: 11px;*/
 	height: 15px;
-	width: 13px;	
-	line-height: 0.8;
-	background: rgba(0, 0, 0, 0.2);
-	border-radius: 1em;
-	-webkit-border-radius: 1em;
-	-moz-border-radius: 1em;
-	padding: 3px 0 0 5px;
-	border: 1px solid rgba(46, 46, 42, 0.7);
-/*	font-size: 10px;*/
-	font-size: 11px;
+	line-height: 1;
+	padding: 2px 5px 1px;
+	margin: 2px 0;
 }
 
 a.documenter.button:hover {
-/*	border: 1px solid rgba(255, 255, 255, 0.35);
-	color: rgba(255, 255, 255, 1);
-	background: rgba(0,0,0, 0.15);*/
-	
-	background-color: rgba(0, 0, 0, 0.8);
-	border-color: rgba(219, 219, 219, 0.1);
 	color: #fff;
-	
-/*	border: 1px solid #373834;*/
-	
+	border-color: rgba(155, 155, 155, 0.5);
 }
-
-/*================================================
-	"HIDE"-BUTTON
-================================================*/
-
-/*#documenter-drawer a.button {
-	position: absolute;
-	top: 23px;
-	right: 19px;
-	text-decoration: none;
-	color: rgba(255, 255, 255, 0.7);
-	height: 11px;
-	width: 11px;
-	line-height: 0.5;
-	background: rgba(0, 0, 0, 0.2);
-	border-radius: 8px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	padding: 3px 0 0 3px;
-	border: 1px solid rgba(46, 46, 42, 0.7);
-	font-size: 10px;
-}
-
-#documenter-drawer a.button:hover {
-	background-color: rgba(0, 0, 0, 0.8);
-	border-color: rgba(219, 219, 219, 0.1);
-	color: #fff;
-}*/
 
 /*================================================
 	DRAWER DEFAULTS
