@@ -28,7 +28,7 @@
 		
 		// Toggle documentation
 		button.click(function(event) {
-			
+
 			// Hide documentation
 			if(button.is('.active')) {
 				hide('fast');
@@ -132,13 +132,18 @@
 		notice();
 		
 		// Restore documenter state
-		if(localStorage) {
+		if(localStorage && (window.location == window.parent.location)) {
 			if(localStorage.getItem('documenter-' + Symphony.Context.get('root')) == 'active') {
 				show(0);
 			}
 		}
 		else {
 			hide(0);
+		}
+		
+		// Remove help in subsections
+		if(window.location != window.parent.location) {
+			button.remove();
 		}
 		
 	});
