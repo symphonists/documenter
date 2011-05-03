@@ -1,8 +1,8 @@
 # Documenter
 
-- Version: 1.0RC1
+- Version: 1.0RC2
 - Author: craig zheng
-- Build Date: 1st March 2011
+- Build Date: 3rd May 2011
 - Requirements: Symphony 2.2
 
 A Symphony extension enabling addition of documentation to any page in the back end, including user-defined section indexes and entry editors.
@@ -25,6 +25,7 @@ Documentation can be managed at `System > Documentation`. For each documentation
 
 ## Changelog
 
+- **1.0RC2** Interface improvements from Nils and Johanna Hörrmann
 - **1.0RC1** Update for Symphony 2.2, some CSS additions from froschdesign
 - **0.9.9** UI overhaul
 - **0.9.8** Johanna's style improvements
