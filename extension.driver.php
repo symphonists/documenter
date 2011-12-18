@@ -1,16 +1,12 @@
 <?php
 
 	class Extension_Documenter extends Extension {
-	
-	/*-------------------------------------------------------------------------
-		Setup
-	-------------------------------------------------------------------------*/
 
 		public function about() {
 			return array(
 				'name'			=> 'Documenter',
-				'version'		=> '1.0RC1', // TODO Change this to 2b when you're done
-				'release-date'	=> '2011-07-04', // TODO Change this when you're done
+				'version'		=> '1.0RC2',
+				'release-date'	=> '2011-05-03',
 				'author'		=> array(
 					'name'			=> 'craig zheng',
 					'email'			=> 'craig@symphony-cms.com'
@@ -54,33 +50,17 @@
 				)
 			);
 		}
-		
-	/*-------------------------------------------------------------------------
-		Initialization
-	-------------------------------------------------------------------------*/
 
 		public function loadAssets($context) {
 			$page = $context['parent']->Page;
 			$assets_path = '/extensions/documenter/assets/';
 
-			$page->addStylesheetToHead(
-				URL . $assets_path . 'documenter.admin.css',
-				'screen',
-				120
-			);
-			$page->addScriptToHead(
-				URL . $assets_path . 'documenter.admin.js',
-				130
-			);
+			$page->addStylesheetToHead(URL . $assets_path . 'documenter.admin.css', 'screen', 120);
+			$page->addScriptToHead(URL . $assets_path . 'documenter.admin.js', 130);
 		}
 
 		public function appendDocs($context) {
-			//$this->createDirectory();
-			$current_page = str_replace(
-				URL . '/symphony',
-				'',
-				$context['parent']->Page->_Parent->getCurrentPageURL()
-			);
+			$current_page = str_replace(URL . '/symphony', '', $context['parent']->Page->_Parent->getCurrentPageURL());
 
 			if(preg_match('/edit/',$current_page)) {
 				$pos = strripos($current_page, '/edit/');
@@ -108,10 +88,8 @@
 			###
 			# Delegate: appendDocsPre
 			# Description: Allow other extensions to add their own documentation page
-			Administration::instance()->ExtensionManager->notifyMembers(
-				'appendDocsPre',
-				'/backend/',
-				array(
+			Administration::instance()->ExtensionManager->notifyMembers('appendDocsPre',
+				'/backend/', array(
 					'pages' => &$pages
 				)
 			);
@@ -148,46 +126,23 @@
 			if(!empty($items)) {
 
 				// Append help item
-				$help = new XMLElement(
-					'a',
-					Symphony::Configuration()->get('button-text', 'documentation'),
-					array(
-						'class' => 'documenter button',
-						'title' => __('View Documentation')
-					)
-				);
-				
+				$help = new XMLElement('a', Symphony::Configuration()->get('button-text', 'documentation'), array('class' => 'documenter button', 'title' => __('View Documentation')));
 				$context['parent']->Page->Body->appendChild($help);
 
 				// Generate documentation panel
-				$docs = new XMLElement(
-					'div',
-					NULL,
-					array(
-						'id' => 'documenter-drawer'
-					)
-				);
-				
+				$docs = new XMLElement('div', NULL, array('id' => 'documenter-drawer'));
 				foreach($items as $item) {
 				
 					// Add title
 					if(isset($item['title'])) {
 						$docs->appendChild(
-							new XMLElement(
-								'h2',
-								$item['title'],
-								array('id' => 'documenter-title')
-							)
+							new XMLElement('h2', $item['title'], array('id' => 'documenter-title'))
 						);
 					}
 
 					// Add formatted help text
 					$docs->appendChild(
-						new XMLElement(
-							'div',
-							$item['content_formatted'],
-							array('class' => 'documenter-content')
-						)
+						new XMLElement('div', $item['content_formatted'], array('class' => 'documenter-content'))
 					);
 
 				}
@@ -195,23 +150,36 @@
 				$context['parent']->Page->Body->appendChild($docs);
 			}
 		}
-		
-	/*-------------------------------------------------------------------------
-		Preferences
-	-------------------------------------------------------------------------*/
+
+		public function uninstall() {
+			Symphony::Database()->query("DROP TABLE `tbl_documentation`;");
+			Symphony::Configuration()->remove('text-formatter', 'documentation');
+			Symphony::Configuration()->remove('button-text', 'documentation');
+			Administration::instance()->saveConfig();
+		}
+
+		public function install() {
+			Symphony::Database()->query(
+				"CREATE TABLE `tbl_documentation` (
+					`id` int(11) unsigned NOT NULL auto_increment,
+					`title` varchar(255),
+					`pages` varchar(255),
+					`content` text,
+					`content_formatted` text,
+					PRIMARY KEY (`id`)
+				);");
+			Symphony::Configuration()->set('text-formatter', 'none', 'documentation');
+			Symphony::Configuration()->set('button-text', __('Need help?'), 'documentation');
+			Administration::instance()->saveConfig();
+			return;
+		}
 
 		public function __SavePreferences($context) {
 
-			if(!is_array($context['settings'])) {
-				$context['settings'] = array(
-					'documentation' => array('text-formatter' => 'none')
-				);
-			}
+			if(!is_array($context['settings'])) $context['settings'] = array('documentation' => array('text-formatter' => 'none'));
 
 			elseif(!isset($context['settings']['documentation'])) {
-				$context['settings']['documentation'] = array(
-					'text-formatter' => 'none'
-				);
+				$context['settings']['documentation'] = array('text-formatter' => 'none');
 			}
 
 		}
@@ -227,7 +195,7 @@
 			$div = new XMLElement('div');
 			$div->setAttribute('class', 'group');
 
-			// Input for button text
+		// Input for button text
 			$label = Widget::Label(__('Button Text'));
 			$input = Widget::Input(
 				'settings[documentation][button-text]',
@@ -238,13 +206,14 @@
 			$label->appendChild($input);
 			$div->appendChild($label);
 
-			// Text formatter select
 			$TFM = new TextformatterManager($this->_Parent);
 			$formatters = $TFM->listAll();
-		
+
+		// Text formatter select
 			$label = Widget::Label(__('Text Formatter'));
 
 			$options = array();
+
 			$options[] = array('none', false, __('None'));
 
 			if(!empty($formatters) && is_array($formatters)) {
@@ -257,106 +226,12 @@
 			}
 
 			$input = Widget::Select('settings[documentation][text-formatter]', $options);
-			
-			// TODO Enable 'modes'
-			// http://symphony-cms.com/discuss/thread/36154/4/#position-69
 
 			$label->appendChild($input);
 			$div->appendChild($label);
 
 			$group->appendChild($div);
 			$context['wrapper']->appendChild($group);
-		}
-		
-		
-	/*-------------------------------------------------------------------------
-		Installation
-	-------------------------------------------------------------------------*/
-	
-		public function uninstall() {
-			Symphony::Configuration()->remove('text-formatter', 'documentation');
-			Symphony::Configuration()->remove('button-text', 'documentation');
-			Administration::instance()->saveConfig();
-		}
-
-		public function install() {
-			
-			// Create the docs directory
-			$this->createDirectory();
-			
-			Symphony::Configuration()->set(
-				'text-formatter',
-				'none',
-				'documentation'
-			);
-			Symphony::Configuration()->set(
-				'button-text',
-				__('Need help?'),
-				'documentation'
-			);
-			Administration::instance()->saveConfig();
-			return;
-		}
-		
-		public function update($previousVersion) {
-			try{
-				if(version_compare($previousVersion, '2.0beta1', '<')) {
-				
-					// Create the docs directory
-					$this->createDirectory();
-				
-					// Read DB and fetch documentation records
-					
-					// For each record, write a new file (or files)
-					// TODO Figure out how to handle errors
-					
-					// Drop the old DB table, we no longer need it
-					Symphony::Database()->query(
-						"DROP TABLE `tbl_documentation`;"
-					);
-				}
-			}
-			catch(Exception $e){
-				// Discard
-			}
-		}
-		
-	/*-------------------------------------------------------------------------
-		Utilities
-	-------------------------------------------------------------------------*/
-		
-		/**
-		 * Initiliazes a directory in the workspace for the documentation
-		 */
-		public function createDirectory() {
-			$folder_name = __('docs');
-			$path = WORKSPACE . '/' . $folder_name;
-			
-			while(file_exists($path)) {
-				if(file_exists($path . '/documenter.xml')) {
-					break;
-				}
-				else {
-					$path = '';
-				}
-			}
-			
-			// Check if directory exists in workspace
-			if(!file_exists($path)) {
-				// If not, create it
-				mkdir($path, 0775);
-			}
-			else {
-				// If so, assign a more specific name
-				$folder_name = 'documenter-docs';
-				mkdir(WORKSPACE . '/' . $folder_name, 0775);
-			}
-			Symphony::Configuration()->set(
-				'folder-name',
-				$folder_name,
-				'documentation'
-			);
-
 		}
 		
 	}
