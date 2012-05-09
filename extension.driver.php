@@ -18,7 +18,7 @@
 		public function fetchNavigation() {
 			return array(
 				array(
-					'location'	=> 'System',
+					'location'	=> __('System'),
 					'name'		=> __('Documentation'),
 					'link'		=> '/',
 					'limit'		=> 'developer'

@@ -34,21 +34,27 @@
 			
 		// Build the status message
 			if (isset($this->_context[1])) {
-				$this->pageAlert(
-					__(
-						'%s %s at %s. <a href="%s">Create another?</a> <a href="%s">View all %s</a>',
-						array(
-							__('Documentation Item'),
-							($this->_context[1] == 'saved' ? 'updated' : 'created'),
-							DateTimeObj::getTimeAgo(__SYM_TIME_FORMAT__),
-							URL . '/symphony/extension/documenter/new/',
-							URL . '/symphony/extension/documenter/',
-							__('Documentation')
-						)
-					),
-					Alert::SUCCESS
-				);
+				if ($this->_context[1] == 'saved') {
+					$this->pageAlert(
+						__('Documentation Item updated at %1$s. <a href="%2$s">Create another?</a> <a href="%3$s">View all Documentation</a>',
+						array(DateTimeObj::getTimeAgo(__SYM_TIME_FORMAT__),
+						      URL . '/symphony/extension/documenter/new/',
+						      URL . '/symphony/extension/documenter/')
+						),
+						Alert::SUCCESS
+					);
+				} else {
+					$this->pageAlert(
+						__('Documentation Item created at %1$s. <a href="%2$s">Create another?</a> <a href="%3$s">View all Documentation</a>',
+						array(DateTimeObj::getTimeAgo(__SYM_TIME_FORMAT__),
+						      URL . '/symphony/extension/documenter/new/',
+						      URL . '/symphony/extension/documenter/')
+						),
+						Alert::SUCCESS
+					);
+				}
 			}
+
 			
 		// Find values
 			if (isset($_POST['fields'])) {
