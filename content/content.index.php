@@ -56,7 +56,10 @@
 					));
 					$col_title->appendChild(Widget::Input("items[{$doc['id']}]", null, 'checkbox'));
 					
-					$col_pages = Widget::TableData($doc['pages']);
+					$pages = $doc['pages'];
+					$pages = explode(',', $pages);
+					$pages = join(', ', $pages);
+					$col_pages = Widget::TableData($pages);
 					
 					$tbody[] = Widget::TableRow(array($col_title, $col_pages), ($bOdd ? 'odd' : NULL));
 					
