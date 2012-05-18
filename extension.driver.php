@@ -163,7 +163,7 @@
 				"CREATE TABLE `tbl_documentation` (
 					`id` int(11) unsigned NOT NULL auto_increment,
 					`title` varchar(255),
-					`pages` varchar(255),
+					`pages` text,
 					`content` text,
 					`content_formatted` text,
 					PRIMARY KEY (`id`)
