@@ -101,7 +101,6 @@
 						$doc_items = $checked;
 
 						Symphony::Database()->delete('tbl_documentation', " `id` IN('".implode("','",$checked)."')");
-						die('eh>');
 						redirect(Administration::instance()->getCurrentPageURL());	
 						break;  	
 				}

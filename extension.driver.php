@@ -32,7 +32,7 @@
 				),
 				array(
 					'page' 		=> '/backend/',
-					'delegate'	=> 'AppendElementBelowView',
+					'delegate'	=> 'InitaliseAdminPageHead',
 					'callback'	=> 'appendDocs'
 				)
 			);
@@ -43,15 +43,15 @@
 			$assets_path = '/extensions/documenter/assets/';
 
 			$page->addStylesheetToHead(URL . $assets_path . 'documenter.admin.css', 'screen', 120);
-			$page->addScriptToHead(URL . $assets_path . 'documenter.admin.js', 130);
 		}
 
 		public function appendDocs($context) {
-			$current_page = str_replace(URL . '/symphony', '', Administration::instance()->getCurrentPageURL());
+			$current_page = Administration::instance()->Page;
+			$current_page_url = str_replace(URL . '/symphony', '', Administration::instance()->getCurrentPageURL());
 
-			if(preg_match('/edit/',$current_page)) {
-				$pos = strripos($current_page, '/edit/');
-				$current_page = substr($current_page, 0, $pos + 6);
+			if(preg_match('/edit/',$current_page_url)) {
+				$pos = strripos($current_page_url, '/edit/');
+				$current_page_url = substr($current_page_url, 0, $pos + 6);
 			}
 			$pages = Symphony::Database()->fetch("
 				SELECT
@@ -75,7 +75,7 @@
 			###
 			# Delegate: appendDocsPre
 			# Description: Allow other extensions to add their own documentation page
-			Administration::instance()->ExtensionManager->notifyMembers('appendDocsPre',
+			Symphony::ExtensionManager()->notifyMembers('appendDocsPre',
 				'/backend/', array(
 					'pages' => &$pages
 				)
@@ -84,7 +84,7 @@
 			// Fetch documentation items 
 			$items = array();
 			foreach($pages as $page) {
-				if(in_array($current_page,$page)) {
+				if(in_array($current_page_url, $page)) {
 					if(isset($page['id'])) {
 						$items[] = Symphony::Database()->fetchRow(0, "
 							SELECT
@@ -99,7 +99,7 @@
 					else {
 						###
 						# Delegate: appendDocsPost
-						# Description: Allows other extensions to insert documentation for the $current_page
+						# Description: Allows other extensions to insert documentation for the $current_page_url
 						Administration::instance()->ExtensionManager->notifyMembers('appendDocsPost',
 							'/backend/', array(
 								'doc_item' => &$doc_items
@@ -111,11 +111,7 @@
 
 			// Allows a page to have more then one documentation source
 			if(!empty($items)) {
-
-				// Append help item
-				$help = new XMLElement('a', Symphony::Configuration()->get('button-text', 'documentation'), array('class' => 'documenter button', 'title' => __('View Documentation')));
-				$context['parent']->Page->Body->appendChild($help);
-
+				
 				// Generate documentation panel
 				$docs = new XMLElement('div', NULL, array('id' => 'documenter-drawer'));
 				foreach($items as $item) {
@@ -133,8 +129,15 @@
 					);
 
 				}
-				// Append documentation
-				$context['parent']->Page->Body->appendChild($docs);
+				
+				$drawer = Widget::Drawer(
+					'documenter',
+					Symphony::Configuration()->get('button-text', 'documentation'),
+					$docs,
+					'closed'
+				);
+				$current_page->insertDrawer($drawer, 'vertical-right');
+				
 			}
 		}
 
@@ -186,7 +189,7 @@
 			$label = Widget::Label(__('Button Text'));
 			$input = Widget::Input(
 				'settings[documentation][button-text]',
-				__(Symphony::Configuration()->get('button-text', 'documentation')),
+				Symphony::Configuration()->get('button-text', 'documentation'),
 				'text'
 			);
 

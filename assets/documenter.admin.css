@@ -15,71 +15,14 @@
 }
 
 /*================================================
-	BUTTON
-================================================*/
-
-a.documenter.button {
-	position: absolute;
-	top: 16px;
-	right: 19px;
-	border-radius: 1em;
-	-webkit-border-radius: 1em;
-	-moz-border-radius: 1em;
-	font-weight: normal;
-	font-size: 11px;
-	border: 1px solid rgba(186, 192, 179, 0.2);
-	background: #2a2a26;
-	color: rgba(255, 255, 255, 0.7);
-	text-decoration: none;
-	z-index: 2000;
-}
-
-a.documenter.button.active {
-	border: 1px solid rgba(155, 155, 155, 0.2);
-	position: absolute;
-	top: 16px;
-	right: 19px;
-	height: 15px;
-	line-height: 1;
-	padding: 2px 5px 1px;
-	margin: 2px 0;
-}
-
-a.documenter.button:hover {
-	color: #fff;
-	border-color: rgba(155, 155, 155, 0.5);
-}
-
-/*================================================
 	DRAWER DEFAULTS
 ================================================*/
 
-#documenter-drawer {
-	z-index: 0;
-	float: right;
-	font: 100%/1.5 Lucida Grande,Leelawadee,Tahoma,Verdana,sans-serif;
-	white-space: normal;
-	text-transform: none;
-	width: 0;
-	display: block;
-	text-shadow: -1px 2px 3px rgba(39, 39, 38, 0.5);
-	color: rgba(255, 255, 255, 0.7);
-	padding: 0;
-	overflow: hidden;
-}
-
-#documenter-drawer .documenter-content {
-	margin: 0 19px 19px;
-	border-top: 1px solid rgba(219, 219, 219, 0.1);
-	padding: 19px 0 0;
-	width: 262px;
-}
-
 #documenter-drawer h2#documenter-title {
-	margin: 21px 19px 1.2em;
+	margin: 0 0 10px 0;
+	padding: 0 0 5px 0;
 	border: none;
-	padding: 0 25px 0 0;
-	width: 256px;
+	border-bottom: 1px solid rgba(219, 219, 219, 0.5);
 }
 
 #documenter-drawer a {
@@ -96,9 +39,7 @@ a.documenter.button:hover {
 ================================================*/
 
 #documenter-drawer h1, #documenter-drawer h2, #documenter-drawer h3, #documenter-drawer h4 {
-	text-shadow: -1px 2px 3px rgba(39,39,38,0.5);
-	background: transparent;
-	border-bottom: 1px solid rgba(219,219,219,0.1);
+	border-bottom: 1px solid rgba(219,219,219,0.3);
 }
 
 #documenter-drawer h2, #documenter-drawer h1 {
