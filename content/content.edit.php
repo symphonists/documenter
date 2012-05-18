@@ -14,8 +14,8 @@
 			
 			// Delete action
 			if (@array_key_exists('delete', $_POST['action'])) {
-				$page = $this->_Parent->Database->fetchRow(0, "SELECT * FROM tbl_documentation WHERE `id` = '$doc_id'");
-				$this->_Parent->Database->delete('tbl_documentation', " `id` = '$doc_id'");
+				$page = Symphony::Database()->fetchRow(0, "SELECT * FROM tbl_documentation WHERE `id` = '$doc_id'");
+				Symphony::Database()->delete('tbl_documentation', " `id` = '$doc_id'");
 				redirect(URL . '/symphony/extension/documenter/');
 			}
 			
@@ -42,7 +42,7 @@
 				if(!isset($fields['pages']) || trim($fields['pages']) == '') $this->_errors['pages'] = __('Pages is a required field');	
 
 				if(empty($this->_errors)){
-					if(!$this->_Parent->Database->update($fields, 'tbl_documentation', "`id` = '$doc_id'")) $this->pageAlert(__('Unknown errors occurred while attempting to save. Please check your <a href="%s">activity log</a>.', array(URL.'/symphony/system/log/')), Alert::ERROR);
+					if(!Symphony::Database()->update($fields, 'tbl_documentation', "`id` = '$doc_id'")) $this->pageAlert(__('Unknown errors occurred while attempting to save. Please check your <a href="%s">activity log</a>.', array(URL.'/symphony/system/log/')), Alert::ERROR);
 
 					else{	
 						redirect(URL . "/symphony/extension/documenter/edit/$doc_id/saved/");

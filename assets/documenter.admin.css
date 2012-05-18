@@ -9,20 +9,6 @@
  * @source: https://github.com/czheng/documenter
  */
 
-body {
-	background: rgba(46, 46, 42, 1);
-}
-
-#wrapper { 
-	overflow: hidden;
-	background: #fff;
-}
-
-#wrapper.documenter {
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-	-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-}
 
 #documenter-pagelist {
 	height: 46em;

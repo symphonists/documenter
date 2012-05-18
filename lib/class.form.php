@@ -80,11 +80,10 @@
 			$this->appendSubheading(($title ? $title : __('Untitled')));
 			
 		// Start building the fieldsets
-			$div = new XMLElement('div');
-			$div->setAttribute('class', 'group');
-		
+			$this->Form->setAttribute('class', 'two columns');
+			
 			$fieldset = new XMLElement('fieldset');
-			$fieldset->setAttribute('class', 'primary');
+			$fieldset->setAttribute('class', 'primary column');
 
 		// Title text input
 			$label = Widget::Label(__('Title'));		
@@ -106,11 +105,11 @@
 			$label->appendChild($content);
 			$fieldset->appendChild((isset($this->_errors['content']) ? $this->wrapFormElementWithError($label, $this->_errors['content']) : $label));
 			
-			$div->appendChild($fieldset);
+			$this->Form->appendChild($fieldset);
 			
 		// Pages multi-select
 			$fieldset = new XMLElement('fieldset');
-			$fieldset->setAttribute('class', 'secondary');
+			$fieldset->setAttribute('class', 'secondary column');
 			$label = Widget::Label(__('Pages'));
 			
 			if(!is_array($fields['pages'])){
@@ -122,7 +121,7 @@
 			$options = array();
 			
 			// Build the options list using the navigation array
-			foreach($this->_Parent->Page->_navigation as $menu){
+			foreach(Administration::instance()->Page->_navigation as $menu){
 				$items = array();
 				foreach($menu['children'] as $item){
 					$items[] = array($item['link'], (in_array($item['link'], $pages_array)), $menu['name'] . " > " . $item['name']);
@@ -144,8 +143,7 @@
 			}
 			
 			$fieldset->appendChild($label);
-			$div->appendChild($fieldset);
-			$this->Form->appendChild($div);
+			$this->Form->appendChild($fieldset);
 			
 		// Form actions
 			
@@ -172,8 +170,7 @@
 			$text_formatter = Symphony::Configuration()->get('text-formatter', 'documentation');
 	
 			if($text_formatter != 'none'){
-				$tfm = new TextformatterManager($this->_Parent);
-				$formatter = $tfm->create($text_formatter);
+				$formatter = TextformatterManager::create($text_formatter);
 				$result = $formatter->run($data);
 			}
 			else {

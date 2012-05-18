@@ -35,10 +35,10 @@
 
 				if(empty($this->_errors)){
 						
-					if(!$this->_Parent->Database->insert($fields, 'tbl_documentation')) $this->pageAlert(__('Unknown errors occurred while attempting to save. Please check your <a href="%s">activity log</a>.', array(URL.'/symphony/system/log/')), Alert::ERROR);
+					if(!Symphony::Database()->insert($fields, 'tbl_documentation')) $this->pageAlert(__('Unknown errors occurred while attempting to save. Please check your <a href="%s">activity log</a>.', array(URL.'/symphony/system/log/')), Alert::ERROR);
 
 					else{	
-						$doc_id = $this->_Parent->Database->getInsertID();
+						$doc_id = Symphony::Database()->getInsertID();
 						redirect(URL . "/symphony/extension/documenter/edit/$doc_id/created/");
 						}
 				}

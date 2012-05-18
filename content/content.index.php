@@ -10,10 +10,13 @@
 			$this->setPageType('table');
 			$this->setTitle(__('%1$s &ndash; %2$s', array(__('Symphony'), __('Documentation'))));
 			
-			$this->appendSubheading(__('Documentation'), Widget::Anchor(
-				__('Create New'), URL . '/symphony/extension/documenter/new/',
-				__('Create a new documentation item'), 'create button'
-			));
+			$this->appendSubheading(
+				__('Documentation'),
+				Widget::Anchor(
+					__('Create New'), URL . '/symphony/extension/documenter/new/',
+					__('Create a new documentation item'), 'create button'
+				)
+			);
 		
 		// Grab all the documentation items
 			$docs = Symphony::Database()->fetch("
@@ -69,18 +72,17 @@
 			
 			$this->Form->appendChild($table);
 			
-			$tableActions = new XMLElement('div');
-			$tableActions->setAttribute('class', 'actions');
+			$actions = new XMLElement('div');
+			$actions->setAttribute('class', 'actions');
 			
 			$options = array(
 				array(null, false, __('With Selected...')),
 				array('delete', false, __('Delete'))							
 			);
 			
-			$tableActions->appendChild(Widget::Select('with-selected', $options));
-			$tableActions->appendChild(Widget::Input('action[apply]', __('Apply'), 'submit'));
+			$actions->appendChild(Widget::Apply($options));
 			
-			$this->Form->appendChild($tableActions);
+			$this->Form->appendChild($actions);
 		
 		}
 		
@@ -95,9 +97,9 @@
 
 						$doc_items = $checked;
 
-						$this->_Parent->Database->delete('tbl_documentation', " `id` IN('".implode("','",$checked)."')");
-
-						redirect($this->_Parent->getCurrentPageURL());	
+						Symphony::Database()->delete('tbl_documentation', " `id` IN('".implode("','",$checked)."')");
+						die('eh>');
+						redirect(Administration::instance()->getCurrentPageURL());	
 						break;  	
 				}
 			}

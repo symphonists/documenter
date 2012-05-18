@@ -1,20 +1,7 @@
 <?php
 
 	class Extension_Documenter extends Extension {
-
-		public function about() {
-			return array(
-				'name'			=> 'Documenter',
-				'version'		=> '1.0RC2',
-				'release-date'	=> '2011-05-03',
-				'author'		=> array(
-					'name'			=> 'craig zheng',
-					'email'			=> 'craig@symphony-cms.com'
-				),
-				'description'	=> 'Document your back end for clients or users.'
-			);
-		}
-
+		
 		public function fetchNavigation() {
 			return array(
 				array(
@@ -52,7 +39,7 @@
 		}
 
 		public function loadAssets($context) {
-			$page = $context['parent']->Page;
+			$page = Administration::instance()->Page;
 			$assets_path = '/extensions/documenter/assets/';
 
 			$page->addStylesheetToHead(URL . $assets_path . 'documenter.admin.css', 'screen', 120);
@@ -60,7 +47,7 @@
 		}
 
 		public function appendDocs($context) {
-			$current_page = str_replace(URL . '/symphony', '', $context['parent']->Page->_Parent->getCurrentPageURL());
+			$current_page = str_replace(URL . '/symphony', '', Administration::instance()->getCurrentPageURL());
 
 			if(preg_match('/edit/',$current_page)) {
 				$pos = strripos($current_page, '/edit/');
@@ -199,15 +186,14 @@
 			$label = Widget::Label(__('Button Text'));
 			$input = Widget::Input(
 				'settings[documentation][button-text]',
-				__($this->_Parent->Configuration->get('button-text', 'documentation')),
+				__(Symphony::Configuration()->get('button-text', 'documentation')),
 				'text'
 			);
 
 			$label->appendChild($input);
 			$div->appendChild($label);
 
-			$TFM = new TextformatterManager($this->_Parent);
-			$formatters = $TFM->listAll();
+			$formatters = TextformatterManager::listAll();
 
 		// Text formatter select
 			$label = Widget::Label(__('Text Formatter'));
