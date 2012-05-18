@@ -9,9 +9,6 @@
 	</types>
 	<authors>
 		<author>
-			<name github="czheng" symphony="czheng">craig zheng</name>
-		</author>
-		<author>
 			<name github="symphonists" symphony="community">Symphony Community</name>
 		</author>
 	</authors>
@@ -19,6 +16,7 @@
 		<item type="image" url="http://symphonyextensions.com/czheng/documenter/media/documenter.png">Documenter: Add documentation to your back-end</item>
 	</media>
 	<releases>
-		<release version="1.0RC1" date="2011-03-01" min="2.0.4" />
+		<release version="2.0" date="2012-05-17" min="2.3" />
+		<release version="1.0RC1" date="2011-03-01" min="2.0.4" max="2.2.x" />
 	</releases>
 </extension>
