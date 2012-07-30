@@ -160,7 +160,7 @@
 					PRIMARY KEY (`id`)
 				);");
 			Symphony::Configuration()->set('text-formatter', 'none', 'documentation');
-			Symphony::Configuration()->set('button-text', __('Need help?'), 'documentation');
+			Symphony::Configuration()->set('button-text', __('Documentation'), 'documentation');
 			Administration::instance()->saveConfig();
 			return;
 		}
