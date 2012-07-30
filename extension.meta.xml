@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension id="documenter" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
 	<name>Documenter</name>
-	<description>Add documentation to your back-end</description>
+	<description>Add documentation to your backend</description>
 	<repo type="github">https://github.com/symphonists/documenter</repo>
 	<url type="discuss">http://symphony-cms.com/discuss/thread/36154/</url>
 	<types>
@@ -11,12 +11,21 @@
 		<author>
 			<name github="symphonists" symphony="community">Symphony Community</name>
 		</author>
+		<author>
+			<name github="cz" symphony="czheng">Craig Zheng</name>
+		</author>
+		<author>
+			<name github="hananils" symphony="hananils">Büro für Web- und Textgestaltung</name>
+			<website>http://hananils.de?symphony=documenter</website>
+		</author>
 	</authors>
-	<media>
-		<item type="image" url="http://symphonyextensions.com/czheng/documenter/media/documenter.png">Documenter: Add documentation to your back-end</item>
-	</media>
 	<releases>
-		<release version="2.0" date="2012-05-17" min="2.3" />
+		<release version="2.1" date="2012-07-30" min="2.3">
+			- Merged advanced styling and behaviour from Johanna's fork
+		</release>
+		<release version="2.0" date="2012-05-17" min="2.3">
+			- Symphony 2.3 compatibility
+		</release>
 		<release version="1.0RC1" date="2011-03-01" min="2.0.4" max="2.2.x" />
 	</releases>
 </extension>

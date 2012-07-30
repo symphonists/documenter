@@ -1,19 +1,24 @@
 # Documenter
-A Symphony extension enabling addition of documentation to any page in the back end, including user-defined section indexes and entry editors.
 
-## Installation
-1. Place the 'documenter' folder in your Symphony 'extensions' directory.
-2. Go to System > Extensions, select "Documenter", choose "Enable" from the with-selected menu, then click Apply.
-3. _optional_ Go to System > Preferences and select the text formatter to use for your documentation items.
+A Symphony extension enabling addition of documentation to any page in the backend, including user-defined section indexes and entry editors.
 
 ## Usage
 
 ### Managing Documentation
+
 Documentation can be managed at `System > Documentation`. For each documentation item, specify:
 
-1. The item's **Title**, used as a heading for the documentation box.
+1. The item's **Title**, used as the heading for the documentation drawer.
 2. The item's **Content**.
 3. The back-end **Pages** on which you'd like this item to appear.
 
+### Special styling
+
+1. **Collapsible blocks:** Documenter will automatically wrap the content between two `h3` headlines into a collapsible block. The headline is used to toggle the state of the following block. All blocks are closed by default but Documenter stores the current opening state of all content blocks in the browser's `localStorage` and restore it on page refresh.. 
+2. **Notes:** You can add notes that are highlighted and never collapsed by wrapping it in a `div.note`, e. g.:
+
+        <div class="note"><strong>Note:</strong> I'm just here to look important.</div>
+
 ## Credits
-Documenter has benefitted from contributions by [Nils Hörrmann](http://nilshoerrmann.de/), [Johanna Hörrmann](http://johannahoerrmann.de/), [froschdesign](https://github.com/froschdesign), and uses Ben Alman's [jQuery resize event](http://benalman.com/projects/jquery-resize-plugin/).
+
+Documenter has benefitted from contributions by [Nils Hörrmann](http://nilshoerrmann.de/), [Johanna Hörrmann](http://johannahoerrmann.de/), [froschdesign](https://github.com/froschdesign).
