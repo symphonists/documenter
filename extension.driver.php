@@ -39,15 +39,12 @@
 		}
 
 		public function loadAssets($context) {
-			$page = Administration::instance()->Page;
-			$assets_path = '/extensions/documenter/assets/';
-
-			$page->addStylesheetToHead(URL . $assets_path . 'documenter.admin.css', 'screen', 120);
+			Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/documenter/assets/documenter.admin.css', 'screen', 100);
+			Administration::instance()->Page->addScriptToHead(URL . '/extensions/documenter/assets/documenter.admin.js', 101, false);
 		}
 
 		public function appendDocs($context) {
-			$current_page = Administration::instance()->Page;
-			$current_page_url = str_replace(URL . '/symphony', '', Administration::instance()->getCurrentPageURL());
+			$current_page_url = str_replace(SYMPHONY_URL, '', Administration::instance()->getCurrentPageURL());
 
 			if(preg_match('/edit/',$current_page_url)) {
 				$pos = strripos($current_page_url, '/edit/');

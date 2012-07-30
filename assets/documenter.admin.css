@@ -9,57 +9,84 @@
  * @source: https://github.com/czheng/documenter
  */
 
-
 #documenter-pagelist {
-	height: 46em;
+	height: 46.5em;
 }
 
-/*================================================
-	DRAWER DEFAULTS
-================================================*/
+#documenter-drawer .documenter-content {
+	width: 262px;
+}
 
-#documenter-drawer h2#documenter-title {
-	margin: 0 0 10px 0;
-	padding: 0 0 5px 0;
+/* Headings */
+
+#documenter-drawer h2 {
+	margin: 0 0 1em -0.39em;
+	padding: 0 0 0.39em 0.39em;
+	border-bottom: 1px solid #d1d1cc;
+	width: 262px;
+}
+
+#documenter-drawer .documenter-content h1, 
+#documenter-drawer .documenter-content h2, 
+#documenter-drawer .documenter-content h3 {
+	border-bottom: 1px solid #e7e7e7;
+	margin: 0 0 0 -0.5em;
+	position: relative;
+	cursor: pointer;
+	font-size: 1em;
+	font-weight: normal;
+	padding: 0.5em 4em 0.5em 0.5em;
+}
+
+#documenter-drawer .documenter-content h1:after, 
+#documenter-drawer .documenter-content h2:after, 
+#documenter-drawer .documenter-content h3:after {
+	content: attr(data-show);
+	position: absolute;
+	right: 0.5em;
+	font-weight: normal;
+	color: #9E9E9E;
+}
+
+#documenter-drawer .documenter-content h1.open, 
+#documenter-drawer .documenter-content h2.open, 
+#documenter-drawer .documenter-content h3.open {
+	background: rgba(255, 255, 255, 0.6);
+}
+
+#documenter-drawer .documenter-content h1.open:after, 
+#documenter-drawer .documenter-content h2.open:after, 
+#documenter-drawer .documenter-content h3.open:after {
+	content: attr(data-hide);
+}
+
+#documenter-drawer .documenter-content .block.open + h1, 
+#documenter-drawer .documenter-content .block.open + h2, 
+#documenter-drawer .documenter-content .block.open + h3 {
+	border-top: 1px solid #e7e7e7;
+}
+
+#documenter-drawer .documenter-content h4 {
+	margin: 0;
 	border: none;
-	border-bottom: 1px solid rgba(219, 219, 219, 0.5);
+	background: transparent;
+	padding: 0 0 0.5em;
+}
+
+/* Content */
+
+#documenter-drawer .block {
+	margin: 1em 0 2.5em;
 }
 
 #documenter-drawer a {
-	color: #d5d5c7;
 	text-decoration: underline;
 }
 
 #documenter-drawer a:hover {
-	color: #fff;
-}
-
-/*================================================
-	DRAWER HEADINGS
-================================================*/
-
-#documenter-drawer h1, #documenter-drawer h2, #documenter-drawer h3, #documenter-drawer h4 {
-	border-bottom: 1px solid rgba(219,219,219,0.3);
-}
-
-#documenter-drawer h2, #documenter-drawer h1 {
-	margin: 2em 0 1.7em 0;
-	padding: 0 0 1.2em 0;
-}
-
-#documenter-drawer h3 {
-	margin: 2em 0 1em 0;
-	padding: 0 0 0.5em;
-}
-
-#documenter-drawer h4 {
-	margin: 0;
+	color: #000;
 	border: none;
 }
-
-/*================================================
-	DRAWER LISTS 
-================================================*/
 
 #documenter-drawer ul {
 	list-style-type: disc;
@@ -78,47 +105,59 @@
 	content: counters(section, ".") ". ";
 }
 
-#documenter-drawer ul, #documenter-drawer ol {
+#documenter-drawer ul, 
+#documenter-drawer ol {
 	margin: 0 0 1.5em 0;
 	list-style-position: inside;
 }
 
-#documenter-drawer ul li li, #documenter-drawer ol li li {
+#documenter-drawer ul li li, 
+#documenter-drawer ol li li {
 	margin-left: 1.5em;
 }
 
-#documenter-drawer dt {font-weight: bold;}
-
-#documenter-drawer dd {margin-bottom: 1em;}
-
-/*================================================
-	DRAWER TABLES 
-================================================*/
-
-#documenter-drawer th:first-child, #documenter-drawer td:first-child {padding-left:19px;}
-
-#documenter-drawer table {
-	margin-bottom: 1.5em;
-	border-collapse: collapse;
-}
-
-#documenter-drawer th {
-	color: #fff;
+#documenter-drawer dt {
 	font-weight: bold;
-	text-align: left;
 }
 
-#documenter-drawer td {
-	border-color: #333;
-	border-width: 1px 0;
-	padding: 0.67em 19px 0.67em 0;
+#documenter-drawer dd {
+	margin-bottom: 1em;
 }
 
-#documenter-drawer tr:nth-child(2n+1) td {background-color: #3a3a3a;}
+#documenter-drawer code {
+	border: 1px solid #e2e2e2;
+	background: #e7e7e7;
+	color: #818180;
+	font-size: 1em;
+	padding: 0 0.3em;
+	margin: 0 0.1em;
+}
 
-/*================================================
-	DRAWER OTHER
-================================================*/
+#documenter-drawer div.note {
+	border: 1px solid #e2e2e2;
+	background: #e7e7e7;
+	color: #414140;
+	padding: 0.5em;
+	margin: 2em 0 1.5em -0.5em;
+}
+
+#documenter-drawer div.documenter-content p:first-child,
+#documenter-drawer div.documenter-content ul:first-child,
+#documenter-drawer div.documenter-content ol:first-child {
+	padding-top: 19px;
+}
+
+#documenter-drawer div.block p:first-child,
+#documenter-drawer div.block ul:first-child,
+#documenter-drawer div.block ol:first-child {
+	padding-top: 0;
+}
+
+#documenter-drawer div.block p:last-child,
+#documenter-drawer div.block ul:last-child,
+#documenter-drawer div.block ol:last-child {
+	margin-bottom: 0;
+}
 
 #documenter-drawer blockquote {
 	margin: 1.5em;
