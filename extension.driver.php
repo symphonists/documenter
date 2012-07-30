@@ -130,13 +130,14 @@
 
 				}
 				
+				$button = Symphony::Configuration()->get('button-text', 'Documentation');
 				$drawer = Widget::Drawer(
 					'documenter',
-					Symphony::Configuration()->get('button-text', 'documentation'),
+					($button != '' ? $button : __('Documentation')),
 					$docs,
 					'closed'
 				);
-				$current_page->insertDrawer($drawer, 'vertical-right');
+				Administration::instance()->Page->insertDrawer($drawer, 'vertical-right');
 				
 			}
 		}
