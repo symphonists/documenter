@@ -28,7 +28,7 @@
 				blocks = [];
 
 			// Load storage
-			if(localStorage) {
+			if(Symphony.Support.localStorage) {
 				blocks = $.parseJSON(localStorage.getItem(documenter.storage));
 			}
 			
@@ -63,7 +63,7 @@
 				blocks.push(text);
 			});
 			
-			if(localStorage) {
+			if(Symphony.Support.localStorage) {
 				localStorage.setItem(documenter.storage, JSON.stringify(blocks));
 			}
 		}
