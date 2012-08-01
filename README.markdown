@@ -21,4 +21,4 @@ Documentation can be managed at `System > Documentation`. For each documentation
 
 ## Acknowledgement
 
-This extension is not a work of a single person, a lot of people tested it and [contributed to it](hhttps://github.com/symphonists/documenter/graphs/contributors).
+This extension is not a work of a single person, a lot of people tested it and [contributed to it](https://github.com/symphonists/documenter/graphs/contributors).
