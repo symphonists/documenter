@@ -20,7 +20,10 @@
 		</author>
 	</authors>
 	<releases>
-		<release version="2.1" date="2012-07-30" min="2.3">
+		<release version="2.1.1" date="2012-07-31" min="2.3">
+			- Defined MYSQL Collation UTF Setting
+		</release>
+    <release version="2.1" date="2012-07-30" min="2.3">
 			- Merged advanced styling and behaviour from Johanna's fork
 		</release>
 		<release version="2.0" date="2012-05-17" min="2.3">
