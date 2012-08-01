@@ -155,7 +155,8 @@
 					`content` text,
 					`content_formatted` text,
 					PRIMARY KEY (`id`)
-				);");
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
+      );
 			Symphony::Configuration()->set('text-formatter', 'none', 'documentation');
 			Symphony::Configuration()->set('button-text', __('Documentation'), 'documentation');
 			Administration::instance()->saveConfig();
