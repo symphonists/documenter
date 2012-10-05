@@ -104,7 +104,10 @@
 			
 			$label->appendChild($content);
 			$fieldset->appendChild((isset($this->_errors['content']) ? $this->wrapFormElementWithError($label, $this->_errors['content']) : $label));
-			
+
+			$fieldset->appendChild(Widget::Input('autogenerate', __('Auto-generate content according to selected section(s)'),
+				'button', array('class'=>'button')));
+
 			$this->Form->appendChild($fieldset);
 			
 		// Pages multi-select
@@ -119,7 +122,10 @@
 				$pages_array = $fields['pages'];
 			}
 			$options = array();
-			
+
+			// Generate a list of sectionField-data for auto-generation of documentation:
+			$arr = array();
+
 			// Build the options list using the navigation array
 			foreach(Administration::instance()->Page->_navigation as $menu){
 				$items = array();
@@ -132,10 +138,26 @@
 						$items[] = array($item['link'] . 'new/', (in_array($item['link'] . 'new/', $pages_array)), $menu['name'] . " > " . $item['name'] . " New");
 						$items[] = array($item['link'] . 'edit/', (in_array($item['link'] . 'edit/', $pages_array)), $menu['name'] . " > " . $item['name'] . " Edit");
 					}
+
+					// Generate a list of sectionField-data for auto-generation of documentation:
+					if($item['type'] == 'section')
+					{
+						$arr2 = array('name' => $item['name'], 'link' => $item['link'], 'items' => array());
+						$fields = FieldManager::fetch(null, $item['section']['id']);
+						foreach($fields as $field)
+						{
+							/* @var $field Field */
+							$arr2['items'][] = array('label' => $field->get('label'));
+						}
+						$arr[] = $arr2;
+					}
 				}
 				$options[] = array('label' => $menu['name'], 'options' => $items);
 			}
-			
+
+			Administration::instance()->Page->addElementToHead(new XMLElement('script', 'var sectionFields = '.json_encode($arr).';',
+				array('type' => 'text/javascript')));
+
 			$label->appendChild(Widget::Select('fields[pages][]', $options, array('multiple' => 'multiple', 'id' => 'documenter-pagelist')));
 			
 			if (isset($this->_errors['pages'])) {
