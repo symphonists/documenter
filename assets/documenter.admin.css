@@ -21,6 +21,10 @@
 	width: 262px;
 }
 
+#documenter-drawer .documenter-content + h2 {
+	padding-top: 3em;
+}
+
 #documenter-drawer .documenter-content h1, 
 #documenter-drawer .documenter-content h2, 
 #documenter-drawer .documenter-content h3 {
