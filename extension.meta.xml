@@ -10,20 +10,25 @@
 	<authors>
 		<author>
 			<name github="symphonists" symphony="community">Symphony Community</name>
+			<website>http://www.getsymphony.com</website>
 		</author>
 		<author>
 			<name github="cz" symphony="czheng">Craig Zheng</name>
 		</author>
 		<author>
 			<name github="hananils" symphony="hananils">Büro für Web- und Textgestaltung</name>
-			<website>http://hananils.de?symphony=documenter</website>
+			<website>http://hananils.de</website>
 		</author>
 	</authors>
 	<releases>
+		<release version="2.1.2" date="2013-08-15" min="2.3">
+			- Fix content block spacing
+			- Remove id on non-unique headlines
+		</release>
 		<release version="2.1.1" date="2012-07-31" min="2.3">
 			- Defined MYSQL Collation UTF Setting
 		</release>
-    <release version="2.1" date="2012-07-30" min="2.3">
+	    <release version="2.1" date="2012-07-30" min="2.3">
 			- Merged advanced styling and behaviour from Johanna's fork
 		</release>
 		<release version="2.0" date="2012-05-17" min="2.3">
