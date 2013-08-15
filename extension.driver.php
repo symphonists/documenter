@@ -116,7 +116,7 @@
 					// Add title
 					if(isset($item['title'])) {
 						$docs->appendChild(
-							new XMLElement('h2', $item['title'], array('id' => 'documenter-title'))
+							new XMLElement('h2', $item['title'])
 						);
 					}
 
