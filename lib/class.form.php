@@ -37,7 +37,7 @@
 				if ($this->_context[1] == 'saved') {
 					$this->pageAlert(
 						__('Documentation Item updated at %1$s. <a href="%2$s">Create another?</a> <a href="%3$s">View all Documentation</a>',
-						array(DateTimeObj::getTimeAgo(__SYM_TIME_FORMAT__),
+						array(Widget::Time()->generate(__SYM_TIME_FORMAT__),
 						      URL . '/symphony/extension/documenter/new/',
 						      URL . '/symphony/extension/documenter/')
 						),
@@ -46,7 +46,7 @@
 				} else {
 					$this->pageAlert(
 						__('Documentation Item created at %1$s. <a href="%2$s">Create another?</a> <a href="%3$s">View all Documentation</a>',
-						array(DateTimeObj::getTimeAgo(__SYM_TIME_FORMAT__),
+						array(Widget::Time()->generate(__SYM_TIME_FORMAT__),
 						      URL . '/symphony/extension/documenter/new/',
 						      URL . '/symphony/extension/documenter/')
 						),
