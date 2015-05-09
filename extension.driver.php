@@ -143,7 +143,7 @@
 			Symphony::Database()->query("DROP TABLE `tbl_documentation`;");
 			Symphony::Configuration()->remove('text-formatter', 'documentation');
 			Symphony::Configuration()->remove('button-text', 'documentation');
-			Administration::instance()->saveConfig();
+			Symphony::Configuration()->write();
 		}
 
 		public function install() {
@@ -159,7 +159,7 @@
       );
 			Symphony::Configuration()->set('text-formatter', 'none', 'documentation');
 			Symphony::Configuration()->set('button-text', __('Documentation'), 'documentation');
-			Administration::instance()->saveConfig();
+			Symphony::Configuration()->write();
 			return;
 		}
 
