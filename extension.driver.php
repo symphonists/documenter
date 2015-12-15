@@ -8,7 +8,7 @@
 					'location'	=> __('System'),
 					'name'		=> __('Documentation'),
 					'link'		=> '/',
-					'limit'		=> 'developer'
+					'limit'		=> 'manager',
 				)
 			);
 		}
