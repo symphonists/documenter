@@ -16,24 +16,24 @@
 		public function getSubscribedDelegates() {
 			return array(
 				array(
-					'page' => '/system/preferences/',
+					'page' =>     '/system/preferences/',
 					'delegate' => 'AddCustomPreferenceFieldsets',
 					'callback' => 'appendPreferences'
 				),
 				array(
-					'page' => '/system/preferences/',
+					'page' =>     '/system/preferences/',
 					'delegate' => 'Save',
-					'callback' => '__SavePreferences'
+					'callback' => 'savePreferences'
 				),
 				array(
-					'page' 		=> '/backend/',
-					'delegate' 	=> 'InitaliseAdminPageHead',
-					'callback' 	=> 'loadAssets'
+					'page'     => '/backend/',
+					'delegate' => 'InitaliseAdminPageHead',
+					'callback' => 'loadAssets'
 				),
 				array(
-					'page' 		=> '/backend/',
-					'delegate'	=> 'InitaliseAdminPageHead',
-					'callback'	=> 'appendDocs'
+					'page'     => '/backend/',
+					'delegate' => 'InitaliseAdminPageHead',
+					'callback' => 'appendDocs'
 				)
 			);
 		}
@@ -156,14 +156,14 @@
 					`content_formatted` text,
 					PRIMARY KEY (`id`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
-      );
+			);
 			Symphony::Configuration()->set('text-formatter', 'none', 'documentation');
 			Symphony::Configuration()->set('button-text', __('Documentation'), 'documentation');
 			Symphony::Configuration()->write();
 			return;
 		}
 
-		public function __SavePreferences($context) {
+		public function savePreferences($context) {
 
 			if(!is_array($context['settings'])) $context['settings'] = array('documentation' => array('text-formatter' => 'none'));
 

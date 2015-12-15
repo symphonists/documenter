@@ -80,7 +80,7 @@
 			
 			$options = array(
 				array(null, false, __('With Selected...')),
-				array('delete', false, __('Delete'))							
+				array('delete', false, __('Delete')),
 			);
 			
 			$actions->appendChild(Widget::Apply($options));
@@ -101,8 +101,8 @@
 						$doc_items = $checked;
 
 						Symphony::Database()->delete('tbl_documentation', " `id` IN('".implode("','",$checked)."')");
-						redirect(Administration::instance()->getCurrentPageURL());	
-						break;  	
+						redirect(Administration::instance()->getCurrentPageURL());
+						break;
 				}
 			}
 		}	

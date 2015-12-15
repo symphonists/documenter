@@ -5,7 +5,7 @@
 	
 	class contentExtensionDocumenterNew extends AdministrationPage {
 	
-		function view() {	
+		function view() {
 			DocumentationForm::render();
 		}
 		

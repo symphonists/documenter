@@ -86,7 +86,7 @@
 			$fieldset->setAttribute('class', 'primary column');
 
 		// Title text input
-			$label = Widget::Label(__('Title'));		
+			$label = Widget::Label(__('Title'));
 			$label->appendChild(Widget::Input(
 				'fields[title]', General::sanitize($fields['title'])
 			));
