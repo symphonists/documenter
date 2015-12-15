@@ -92,7 +92,7 @@
 			));
 			
 			if (isset($this->_errors['title'])) {
-				$label = $this->wrapFormElementWithError($label, $this->_errors['title']);
+				$label = Widget::Error($label, $this->_errors['title']);
 			}
 			$fieldset->appendChild($label);
 			
@@ -103,7 +103,7 @@
 			if(Symphony::Configuration()->get('text-formatter', 'documentation') != 'none') $content->setAttribute('class', Symphony::Configuration()->get('text-formatter', 'documentation'));
 			
 			$label->appendChild($content);
-			$fieldset->appendChild((isset($this->_errors['content']) ? $this->wrapFormElementWithError($label, $this->_errors['content']) : $label));
+			$fieldset->appendChild((isset($this->_errors['content']) ? Widget::Error($label, $this->_errors['content']) : $label));
 			
 			$this->Form->appendChild($fieldset);
 			
@@ -139,7 +139,7 @@
 			$label->appendChild(Widget::Select('fields[pages][]', $options, array('multiple' => 'multiple', 'id' => 'documenter-pagelist')));
 			
 			if (isset($this->_errors['pages'])) {
-				$label = $this->wrapFormElementWithError($label, $this->_errors['pages']);
+				$label = Widget::Error($label, $this->_errors['pages']);
 			}
 			
 			$fieldset->appendChild($label);
@@ -201,7 +201,7 @@
 				}
 			}
 
-			return $result;		
+			return $result;
 		}
 		
 		private function __replaceAmpersands($value) {
