@@ -8,8 +8,12 @@
 	height: 46.5em;
 }
 
+#drawer-documenter {
+	background: #282828;
+}
+
 #documenter-drawer .documenter-content {
-	width: 262px;
+	color: rgba(255,255,255,.85);
 }
 
 /* Headings */
@@ -18,7 +22,7 @@
 	margin: 0 0 1em -0.39em;
 	padding: 0 0 0.39em 0.39em;
 	border-bottom: 1px solid #d1d1cc;
-	width: 262px;
+	color: rgba(255,255,255,.85);
 }
 
 #documenter-drawer .documenter-content + h2 {
@@ -35,6 +39,7 @@
 	font-size: 1em;
 	font-weight: normal;
 	padding: 0.5em 4em 0.5em 0.5em;
+	color: rgba(255,255,255,.85);
 }
 
 #documenter-drawer .documenter-content h1:after, 
@@ -44,7 +49,7 @@
 	position: absolute;
 	right: 0.5em;
 	font-weight: normal;
-	color: #9E9E9E;
+	color: rgba(255,255,255,.85);
 }
 
 #documenter-drawer .documenter-content h1.open, 
