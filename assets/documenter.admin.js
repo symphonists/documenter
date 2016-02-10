@@ -75,3 +75,27 @@
 	});
 
 })(jQuery.noConflict());
+
+jQuery(function($){
+    $('input[name=autogenerate]').click(function(e){
+        var selected = $('#documenter-pagelist').val();
+        if(selected)
+        {
+            var text = '';
+            for(var i=0; i<selected.length; i++)
+            {
+                $(sectionFields).each(function(){
+                    if(this.link == selected[i].replace(/new\/|edit\//, ''))
+                    {
+                        // text += "# " + this.name + "\n\n";
+                        $('input[name="fields[title]"]').val(this.name);
+                        $(this.items).each(function(){
+                            text += "## " + this.label + "\n\n";
+                        });
+                    }
+                });
+            }
+            $('textarea[name="fields[content]"]').val(text);
+        }
+    });
+});
