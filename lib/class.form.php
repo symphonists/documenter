@@ -103,7 +103,7 @@
 			if(Symphony::Configuration()->get('text-formatter', 'documentation') != 'none') $content->setAttribute('class', Symphony::Configuration()->get('text-formatter', 'documentation'));
 			
 			$label->appendChild($content);
-			$fieldset->appendChild((isset($this->_errors['content']) ? $this->Error($label, $this->_errors['content']) : $label));
+			$fieldset->appendChild((isset($this->_errors['content']) ? Widget::Error($label, $this->_errors['content']) : $label));
 
 			$fieldset->appendChild(Widget::Input('autogenerate',
 				__('Auto-generate content according to selected section(s)'),
