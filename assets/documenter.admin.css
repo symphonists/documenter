@@ -163,6 +163,11 @@
 	margin-bottom: 0;
 }
 
+#documenter-drawer div.documenter-content img:not([class]) {
+	display: block;
+	max-width: 100%;
+}
+
 #documenter-drawer blockquote {
 	margin: 1.5em;
 	color: #aaa;
