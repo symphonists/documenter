@@ -5,11 +5,18 @@
 	
 	class contentExtensionDocumenterEdit extends AdministrationPage {
 	
-		function view() {
-			DocumentationForm::render();
+		private $form;
+
+		public function __construct() {
+			parent::__construct();
+			$this->form = new DocumentationForm($this);
+		}
+
+		public function view() {
+			$this->form->render();
 		}
 		
-		function action() {
+		public function action() {
 			$doc_id = $this->_context[0];
 			
 			// Delete action
@@ -31,10 +38,10 @@
 					$fields['pages'] = implode(',',$fields['pages']);
 				}
 
-				$fields['content_formatted'] = DocumentationForm::applyFormatting($fields['content'], true, $this->_errors);
+				$fields['content_formatted'] = $this->form->applyFormatting($fields['content'], true, $this->_errors);
 				
 				if($fields['content_formatted'] === false){
-					$fields['content_formatted'] = General::sanitize(DocumentationForm::applyFormatting($fields['content']));	
+					$fields['content_formatted'] = General::sanitize($this->form->applyFormatting($fields['content']));	
 				}
 
 				if(!isset($fields['content']) || trim($fields['content']) == '') $this->_errors['content'] = __('Content is a required field');

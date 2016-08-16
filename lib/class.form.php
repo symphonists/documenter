@@ -1,15 +1,21 @@
 <?php
 
 	class DocumentationForm {
+
+		private $page;
+
+		public function __construct($page) {
+			$this->page = $page;
+		}
 	
-		function render() {
+		public function render() {
 		
-			$this->setPageType('form');
+			$this->page->setPageType('form');
 			$fields = array();
 			
 		// If we're editing, make sure the item exists
-			if ($this->_context[0]) {
-				if (!$doc_id = $this->_context[0]) redirect(URL . '/symphony/extension/documenter/manage');
+			if ($this->page->_context[0]) {
+				if (!$doc_id = $this->page->_context[0]) redirect(URL . '/symphony/extension/documenter/manage');
 				
 				$existing = Symphony::Database()->fetchRow(0, "
 					SELECT
@@ -22,7 +28,7 @@
 				");
 				
 				if (!$existing) {
-					$this->_Parent->customError(
+					$this->page->_Parent->customError(
 						E_USER_ERROR, __('Documentation Item not found'),
 						__('The documentation item you requested to edit does not exist.'),
 						false, true, 'error', array(
@@ -33,9 +39,9 @@
 			}
 			
 		// Build the status message
-			if (isset($this->_context[1])) {
-				if ($this->_context[1] == 'saved') {
-					$this->pageAlert(
+			if (isset($this->page->_context[1])) {
+				if ($this->page->_context[1] == 'saved') {
+					$this->page->pageAlert(
 						__('Documentation Item updated at %1$s. <a href="%2$s">Create another?</a> <a href="%3$s">View all Documentation</a>',
 						array(Widget::Time()->generate(__SYM_TIME_FORMAT__),
 						      URL . '/symphony/extension/documenter/new/',
@@ -44,7 +50,7 @@
 						Alert::SUCCESS
 					);
 				} else {
-					$this->pageAlert(
+					$this->page->pageAlert(
 						__('Documentation Item created at %1$s. <a href="%2$s">Create another?</a> <a href="%3$s">View all Documentation</a>',
 						array(Widget::Time()->generate(__SYM_TIME_FORMAT__),
 						      URL . '/symphony/extension/documenter/new/',
@@ -60,7 +66,7 @@
 			if (isset($_POST['fields'])) {
 				$fields = $_POST['fields'];
 				
-			} else if ($this->_context[0]) {
+			} else if ($this->page->_context[0]) {
 				$fields = $existing;
 				$fields['content'] = General::sanitize($fields['content']);
 			}
@@ -69,7 +75,7 @@
 			if (trim($title) == '') $title = $existing['title'];
 		
 		// Start building the page
-			$this->setTitle(__(
+			$this->page->setTitle(__(
 				($title ? '%1$s &ndash; %2$s &ndash; %3$s' : '%1$s &ndash; %2$s'),
 				array(
 					__('Symphony'),
@@ -77,10 +83,10 @@
 					$title
 				)
 			));
-			$this->appendSubheading(($title ? $title : __('Untitled')));
+			$this->page->appendSubheading(($title ? $title : __('Untitled')));
 			
 		// Start building the fieldsets
-			$this->Form->setAttribute('class', 'two columns');
+			$this->page->Form->setAttribute('class', 'two columns');
 			
 			$fieldset = new XMLElement('fieldset');
 			$fieldset->setAttribute('class', 'primary column');
@@ -91,8 +97,8 @@
 				'fields[title]', General::sanitize($fields['title'])
 			));
 			
-			if (isset($this->_errors['title'])) {
-				$label = Widget::Error($label, $this->_errors['title']);
+			if (isset($this->page->_errors['title'])) {
+				$label = Widget::Error($label, $this->page->_errors['title']);
 			}
 			$fieldset->appendChild($label);
 			
@@ -103,14 +109,14 @@
 			if(Symphony::Configuration()->get('text-formatter', 'documentation') != 'none') $content->setAttribute('class', Symphony::Configuration()->get('text-formatter', 'documentation'));
 			
 			$label->appendChild($content);
-			$fieldset->appendChild((isset($this->_errors['content']) ? Widget::Error($label, $this->_errors['content']) : $label));
+			$fieldset->appendChild((isset($this->page->_errors['content']) ? Widget::Error($label, $this->page->_errors['content']) : $label));
 
 			$fieldset->appendChild(Widget::Input('autogenerate',
 				__('Auto-generate content according to selected section(s)'),
 				'button', array('class'=>'button')
 			));
 
-			$this->Form->appendChild($fieldset);
+			$this->page->Form->appendChild($fieldset);
 			
 			// Pages multi-select
 			$fieldset = new XMLElement('fieldset');
@@ -161,29 +167,29 @@
 
 			$label->appendChild(Widget::Select('fields[pages][]', $options, array('multiple' => 'multiple', 'id' => 'documenter-pagelist')));
 			
-			if (isset($this->_errors['pages'])) {
-				$label = Widget::Error($label, $this->_errors['pages']);
+			if (isset($this->page->_errors['pages'])) {
+				$label = Widget::Error($label, $this->page->_errors['pages']);
 			}
 			
 			$fieldset->appendChild($label);
-			$this->Form->appendChild($fieldset);
+			$this->page->Form->appendChild($fieldset);
 			
 			// Form actions
 			
 			$div = new XMLElement('div');
 			$div->setAttribute('class', 'actions');
 			$div->appendChild(Widget::Input(
-				'action[save]', ($this->_context[0] ? __('Save Changes') : __('Document It')),
+				'action[save]', ($this->page->_context[0] ? __('Save Changes') : __('Document It')),
 				'submit', array('accesskey' => 's')
 			));
 			
-			if($this->_context[0]){
+			if($this->page->_context[0]){
 				$button = new XMLElement('button', __('Delete'));
 				$button->setAttributeArray(array('name' => 'action[delete]', 'class' => 'confirm delete', 'title' => __('Delete this template')));
 				$div->appendChild($button);
 			}
 			
-			$this->Form->appendChild($div);
+			$this->page->Form->appendChild($div);
 		}
 		
 		function applyFormatting($data, $validate=false, &$errors=NULL){
