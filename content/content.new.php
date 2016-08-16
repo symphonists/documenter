@@ -5,11 +5,18 @@
 	
 	class contentExtensionDocumenterNew extends AdministrationPage {
 	
-		function view() {
-			DocumentationForm::render();
+		private $form;
+
+		public function __construct() {
+			parent::__construct();
+			$this->form = new DocumentationForm($this);
 		}
-		
-		function action() {
+
+		public function view() {
+			$this->form->render();
+		}
+
+		public function action() {
 			if(@array_key_exists('save', $_POST['action'])){
 			
 				$this->_errors = array();
@@ -21,10 +28,10 @@
 					$fields['pages'] = implode(',',$fields['pages']);
 				}
 				
-				$fields['content_formatted'] = DocumentationForm::applyFormatting($fields['content'], true, $this->_errors);
+				$fields['content_formatted'] = $this->form->applyFormatting($fields['content'], true, $this->_errors);
 				
 				if($fields['content_formatted'] === false){
-					$fields['content_formatted'] = General::sanitize(DocumentationForm::applyFormatting($fields['content']));	
+					$fields['content_formatted'] = General::sanitize($this->form->applyFormatting($fields['content']));	
 				}
 
 				if(!isset($fields['title']) || trim($fields['title']) == '') $this->_errors['title'] = __('Title is a required field');	
@@ -44,7 +51,7 @@
 				}
 			}
 			
-			if(is_array($this->_errors) && !empty($this->_errors)) $this->pageAlert(__('An error occurred while processing this form. <a href="#error">See below for details.</a>'), Alert::ERROR);				
+			if(is_array($this->_errors) && !empty($this->_errors)) $this->pageAlert(__('An error occurred while processing this form. <a href="#error">See below for details.</a>'), Alert::ERROR);
 		}
 	
 	}
