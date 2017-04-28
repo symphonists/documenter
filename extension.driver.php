@@ -1,7 +1,7 @@
 <?php
 
 	class Extension_Documenter extends Extension {
-		
+
 		public function fetchNavigation() {
 			return array(
 				array(
@@ -78,7 +78,7 @@
 				)
 			);
 
-			// Fetch documentation items 
+			// Fetch documentation items
 			$items = array();
 			foreach($pages as $page) {
 				if(in_array($current_page_url, $page)) {
@@ -92,7 +92,7 @@
 								 d.id = '{$page['id']}'
 							LIMIT 1
 						 ");
-					} 
+					}
 					else {
 						###
 						# Delegate: appendDocsPost
@@ -108,11 +108,11 @@
 
 			// Allows a page to have more then one documentation source
 			if(!empty($items)) {
-				
+
 				// Generate documentation panel
 				$docs = new XMLElement('div', NULL, array('id' => 'documenter-drawer'));
 				foreach($items as $item) {
-				
+
 					// Add title
 					if(isset($item['title'])) {
 						$docs->appendChild(
@@ -126,7 +126,7 @@
 					);
 
 				}
-				
+
 				$button = General::sanitize(Symphony::Configuration()->get('button-text', 'Documentation'));
 				$drawer = Widget::Drawer(
 					'documenter',
@@ -134,8 +134,8 @@
 					$docs,
 					'closed'
 				);
-				Administration::instance()->Page->insertDrawer($drawer, 'vertical-right');
-				
+
+				Administration::instance()->Page->insertDrawer($drawer, 'vertical-right', 'append', Widget::SVGIcon('help'));
 			}
 		}
 
@@ -221,5 +221,5 @@
 			$group->appendChild($div);
 			$context['wrapper']->appendChild($group);
 		}
-		
+
 	}
