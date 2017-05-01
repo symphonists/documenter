@@ -215,6 +215,8 @@
 				);
 			}
 
+			$div->appendChild(Widget::SVGIcon('chevron'));
+
 			$this->page->Form->appendChild($div);
 		}
 
