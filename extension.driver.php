@@ -135,7 +135,16 @@
 					'closed'
 				);
 
-				Administration::instance()->Page->insertDrawer($drawer, 'vertical-right', 'append', Widget::SVGIcon('help'));
+				Widget::registerSVGIcon(
+					'help',
+					'<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="26px" height="26px" viewBox="0 0 26 26"><circle fill="currentColor" cx="13" cy="20.1" r="1.3"/><path fill="currentColor" d="M14,17.1h-2v-3.2c0-0.6,0.4-1,1-1c1.7,0,3.1-1.3,3.1-3s-1.4-3-3.1-3c-1.7,0-3.1,1.3-3.1,3.3h-2c0-3,2.3-5.3,5.1-5.3c2.9,0,5.1,2.2,5.1,5c0,2.5-1.7,4.5-4.1,4.9V17.1z"/><path fill="currentColor" d="M13,26C5.8,26,0,20.2,0,13S5.8,0,13,0s13,5.8,13,13S20.2,26,13,26z M13,2C6.9,2,2,6.9,2,13s4.9,11,11,11s11-4.9,11-11S19.1,2,13,2z"/></svg>'
+				);
+				Administration::instance()->Page->insertDrawer(
+					$drawer,
+					'vertical-right',
+					'append',
+					Widget::SVGIcon('help')
+				);
 			}
 		}
 
