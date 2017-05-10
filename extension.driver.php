@@ -1,17 +1,8 @@
 <?php
 
-	class Extension_Documenter extends Extension {
+	if(!defined("__IN_SYMPHONY__")) die("<h2>Error</h2><p>You cannot directly access this file</p>");
 
-		public function fetchNavigation() {
-			return array(
-				array(
-					'location'	=> __('System'),
-					'name'		=> __('Documentation'),
-					'link'		=> '/',
-					'limit'		=> 'manager',
-				)
-			);
-		}
+	Class Extension_Documenter extends Extension {
 
 		public function getSubscribedDelegates() {
 			return array(
@@ -34,6 +25,40 @@
 					'page'     => '/backend/',
 					'delegate' => 'InitaliseAdminPageHead',
 					'callback' => 'appendDocs'
+				),
+				array(
+					'page'     => '/backend/',
+					'delegate' => 'NavigationPreRender',
+					'callback' => 'navigationPreRender'
+				)
+			);
+		}
+
+		public function navigationPreRender($context) {
+			$c = Administration::instance()->getPageCallback();
+
+			if (strpos($c['classname'], 'contentExtensionDocumenter') !== false) {
+				foreach ($context['navigation'] as $key => $section) {
+					if ($section['name'] == __('System')) {
+						$context['navigation'][$key]['class'] = 'active opened';
+
+						foreach ($context['navigation'][$key]['children'] as $subkey => $subsection) {
+							if ($subsection['name'] == __('Documentation')) {
+								$context['navigation'][$key]['children'][$subkey]['class'] = 'active';
+							}
+						}
+					}
+				}
+			}
+		}
+
+		public function fetchNavigation() {
+			return array(
+				array(
+					'location'	=> __('System'),
+					'name'		=> __('Documentation'),
+					'link'		=> '/',
+					'limit'		=> 'manager',
 				)
 			);
 		}
