@@ -13,8 +13,10 @@
 			$this->appendSubheading(
 				__('Documentation'),
 				Widget::Anchor(
-					Widget::SVGIcon('add') . '<span><span>' . __('Create New'), URL . '/symphony/extension/documenter/new/' . '</span></span>',
-					__('Create a new documentation item'), 'create button'
+					Widget::SVGIcon('add') . '<span><span>' . __('Create New') . '</span></span>',
+					URL . '/symphony/extension/documenter/new/',
+					__('Create a new documentation item'),
+					'create button'
 				)
 			);
 
