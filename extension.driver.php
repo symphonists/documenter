@@ -152,7 +152,7 @@
 
 				}
 
-				$button = General::sanitize(Symphony::Configuration()->get('button-text', 'Documentation'));
+				$button = General::sanitize(Symphony::Configuration()->get('button-text', __('Documentation')));
 				$drawer = Widget::Drawer(
 					'documenter',
 					($button != '' ? $button : __('Documentation')),
