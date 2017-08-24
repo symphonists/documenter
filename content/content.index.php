@@ -65,7 +65,7 @@
 					$col_pages = Widget::TableData($pages);
 					$col_pages->setAttribute('data-title', __('Pages'));
 
-					$tbody[] = Widget::TableRow(array($col_title, $col_pages), ($bOdd ? 'odd' : NULL));
+					$tbody[] = Widget::TableRow(array($col_title, $col_pages), ($bOdd ? 'odd' : null));
 
 					$bOdd = !$bOdd;
 				}

@@ -220,7 +220,7 @@
 			$this->page->Form->appendChild($div);
 		}
 
-		function applyFormatting($data, $validate=false, &$errors=NULL){
+		function applyFormatting($data, $validate = false, &$errors = null){
 			include_once(TOOLKIT . '/class.textformattermanager.php');
 
 			$text_formatter = Symphony::Configuration()->get('text-formatter', 'documentation');
@@ -256,7 +256,7 @@
 			return $result;
 		}
 
-		private function __replaceAmpersands($value) {
+		private function __replaceAmpersands($value){
 			return preg_replace('/&(?!(#[0-9]+|#x[0-9a-f]+|amp|lt|gt);)/i', '&amp;', trim($value));
 		}
 	}

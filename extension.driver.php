@@ -135,7 +135,7 @@
 			if(!empty($items)) {
 
 				// Generate documentation panel
-				$docs = new XMLElement('div', NULL, array('id' => 'documenter-drawer'));
+				$docs = new XMLElement('div', null, array('id' => 'documenter-drawer'));
 				foreach($items as $item) {
 
 					// Add title
@@ -183,11 +183,11 @@
 		public function install() {
 			Symphony::Database()->query(
 				"CREATE TABLE `tbl_documentation` (
-					`id` int(11) unsigned NOT NULL auto_increment,
-					`title` varchar(255),
-					`pages` text,
-					`content` text,
-					`content_formatted` text,
+					`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+					`title` VARCHAR(255),
+					`pages` TEXT,
+					`content` TEXT,
+					`content_formatted` TEXT,
 					PRIMARY KEY (`id`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
 			);
