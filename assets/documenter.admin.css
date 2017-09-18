@@ -85,10 +85,11 @@
 
 #documenter-drawer a {
 	text-decoration: underline;
+	color: #6f9bda;
 }
 
 #documenter-drawer a:hover {
-	color: #000;
+	color: #93bfff;
 	border: none;
 }
 
