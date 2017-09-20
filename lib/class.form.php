@@ -111,10 +111,13 @@
 			$label->appendChild($content);
 			$fieldset->appendChild((isset($this->page->_errors['content']) ? Widget::Error($label, $this->page->_errors['content']) : $label));
 
-			$fieldset->appendChild(Widget::Input('autogenerate',
-				__('Auto-generate content according to selected section(s)'),
-				'button', array('class'=>'button')
-			));
+			// Auto generate requires
+			if (strpos(Symphony::Configuration()->get('text-formatter', 'documentation'), 'markdown') !== false) {
+				$fieldset->appendChild(Widget::Input('autogenerate',
+					__('Auto-generate content according to selected section(s)'),
+					'button', array('class'=>'button')
+				));
+			}
 
 			$this->page->Form->appendChild($fieldset);
 			
