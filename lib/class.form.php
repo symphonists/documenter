@@ -1,19 +1,21 @@
 <?php
 
-	class DocumentationForm {
+	class DocumentationForm
+	{
 
 		private $page;
 
-		public function __construct($page) {
+		public function __construct($page)
+		{
 			$this->page = $page;
 		}
 	
-		public function render() {
-		
+		public function render()
+		{
 			$this->page->setPageType('form');
 			$fields = array();
 			
-		// If we're editing, make sure the item exists
+			// If we're editing, make sure the item exists
 			if ($this->page->_context[0]) {
 				if (!$doc_id = $this->page->_context[0]) redirect(URL . '/symphony/extension/documenter/manage');
 				
@@ -38,7 +40,7 @@
 				}
 			}
 			
-		// Build the status message
+			// Build the status message
 			if (isset($this->page->_context[1])) {
 				if ($this->page->_context[1] == 'saved') {
 					$this->page->pageAlert(
@@ -61,8 +63,7 @@
 				}
 			}
 
-			
-		// Find values
+			// Find values
 			if (isset($_POST['fields'])) {
 				$fields = $_POST['fields'];
 				
@@ -73,8 +74,8 @@
 			
 			$title = $fields['title'];
 			if (trim($title) == '') $title = $existing['title'];
-		
-		// Start building the page
+			
+			// Start building the page
 			$this->page->setTitle(__(
 				($title ? '%1$s &ndash; %2$s &ndash; %3$s' : '%1$s &ndash; %2$s'),
 				array(
@@ -85,13 +86,13 @@
 			));
 			$this->page->appendSubheading(($title ? $title : __('Untitled')));
 			
-		// Start building the fieldsets
+			// Start building the fieldsets
 			$this->page->Form->setAttribute('class', 'two columns');
 			
 			$fieldset = new XMLElement('fieldset');
 			$fieldset->setAttribute('class', 'primary column');
 
-		// Title text input
+			// Title text input
 			$label = Widget::Label(__('Title'));
 			$label->appendChild(Widget::Input(
 				'fields[title]', General::sanitize($fields['title'])
@@ -102,11 +103,13 @@
 			}
 			$fieldset->appendChild($label);
 			
-		// Content textarea
+			// Content textarea
 			$label = Widget::Label(__('Content'));
 			
 			$content = Widget::Textarea('fields[content]', 30, 80, $fields['content']);
-			if(Symphony::Configuration()->get('text-formatter', 'documentation') != 'none') $content->setAttribute('class', Symphony::Configuration()->get('text-formatter', 'documentation'));
+			if (Symphony::Configuration()->get('text-formatter', 'documentation') != 'none') {
+				$content->setAttribute('class', Symphony::Configuration()->get('text-formatter', 'documentation'));
+			}
 			
 			$label->appendChild($content);
 			$fieldset->appendChild((isset($this->page->_errors['content']) ? Widget::Error($label, $this->page->_errors['content']) : $label));
@@ -126,10 +129,9 @@
 			$fieldset->setAttribute('class', 'secondary column');
 			$label = Widget::Label(__('Pages'));
 			
-			if(!is_array($fields['pages'])){
+			if (!is_array($fields['pages'])) {
 				$pages_array = explode(',', $fields['pages']);
-			}
-			else {
+			} else {
 				$pages_array = $fields['pages'];
 			}
 			$options = array();
@@ -138,20 +140,20 @@
 			$arr = array();
 
 			// Build the options list using the navigation array
-			foreach(Administration::instance()->Page->_navigation as $menu){
+			foreach (Administration::instance()->Page->_navigation as $menu) {
 				$items = array();
-				foreach($menu['children'] as $item){
+				foreach ($menu['children'] as $item) {
 					$items[] = array($item['link'], (in_array($item['link'], $pages_array)), $menu['name'] . " > " . $item['name']);
 					
 					// If it's a section, add New and Edit pages
 					// NOTE: This will likely break when extensions add custom nav groups
-					if($menu['name'] != 'Blueprints' and $menu['name'] != 'System') {
+					if ($menu['name'] != 'Blueprints' and $menu['name'] != 'System') {
 						$items[] = array($item['link'] . 'new/', (in_array($item['link'] . 'new/', $pages_array)), $menu['name'] . " > " . $item['name'] . " New");
 						$items[] = array($item['link'] . 'edit/', (in_array($item['link'] . 'edit/', $pages_array)), $menu['name'] . " > " . $item['name'] . " Edit");
 					}
 
 					// Generate a list of sectionField-data for auto-generation of documentation:
-					if($item['type'] == 'section') {
+					if ($item['type'] == 'section') {
 						$arr2 = array('name' => $item['name'], 'link' => $item['link'], 'items' => array());
 						$fields = FieldManager::fetch(null, $item['section']['id']);
 						foreach($fields as $field)
@@ -178,7 +180,6 @@
 			$this->page->Form->appendChild($fieldset);
 			
 			// Form actions
-			
 			$div = new XMLElement('div');
 			$div->setAttribute('class', 'actions');
 			$div->appendChild(Widget::Input(
@@ -186,7 +187,7 @@
 				'submit', array('accesskey' => 's')
 			));
 			
-			if($this->page->_context[0]){
+			if ($this->page->_context[0]) {
 				$button = new XMLElement('button', __('Delete'));
 				$button->setAttributeArray(array('name' => 'action[delete]', 'class' => 'confirm delete', 'title' => __('Delete this template')));
 				$div->appendChild($button);
@@ -195,37 +196,33 @@
 			$this->page->Form->appendChild($div);
 		}
 		
-		function applyFormatting($data, $validate=false, &$errors=NULL){
-		
+		function applyFormatting($data, $validate = false, &$errors=  null)
+		{
 			include_once(TOOLKIT . '/class.textformattermanager.php');
-		
+			
 			$text_formatter = Symphony::Configuration()->get('text-formatter', 'documentation');
-	
-			if($text_formatter != 'none'){
+		
+			if ($text_formatter != 'none') {
 				$formatter = TextformatterManager::create($text_formatter);
 				$result = $formatter->run($data);
-			}
-			else {
+			} else {
 				$result = $data;
 			}
 
-			if($validate === true){
+			if ($validate === true) {
 
 				include_once(TOOLKIT . '/class.xsltprocess.php');
 				
-				if($text_formatter == 'none'){
+				if ($text_formatter == 'none') {
 					$result = DocumentationForm::__replaceAmpersands($result);
-				}
-				else {
-					if(!General::validateXML($result, $errors, false, new XsltProcess)){
+				} else {
+					if (!General::validateXML($result, $errors, false, new XsltProcess)) {
 						$result = html_entity_decode($result, ENT_QUOTES, 'UTF-8');
 						$result = DocumentationForm::__replaceAmpersands($result);
 
-						if(!General::validateXML($result, $errors, false, new XsltProcess)){
-
+						if (!General::validateXML($result, $errors, false, new XsltProcess)) {
 							$result = $formatter->run(General::sanitize($data));
-					
-							if(!General::validateXML($result, $errors, false, new XsltProcess)){
+							if (!General::validateXML($result, $errors, false, new XsltProcess)) {
 								return false;
 							}
 						}
@@ -236,8 +233,8 @@
 			return $result;
 		}
 		
-		private function __replaceAmpersands($value) {
+		private function __replaceAmpersands($value)
+		{
 			return preg_replace('/&(?!(#[0-9]+|#x[0-9a-f]+|amp|lt|gt);)/i', '&amp;', trim($value));
 		}
-	
 	}
