@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension id="documenter" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+<extension id="documenter" status="released" xmlns="http://getsymphony.com/schemas/extension/1.0">
 	<name>Documenter</name>
 	<description>Add documentation to your backend</description>
 	<repo type="github">https://github.com/symphonists/documenter</repo>
-	<url type="discuss">http://symphony-cms.com/discuss/thread/36154/</url>
+	<url type="discuss">https://www.getsymphony.com/discuss/thread/36154/</url>
 	<types>
 		<type>Workflow</type>
 		<type>Documentation</type>
@@ -11,7 +11,7 @@
 	<authors>
 		<author>
 			<name github="symphonists" symphony="community">Symphony Community</name>
-			<website>http://www.getsymphony.com</website>
+			<website>https://www.getsymphony.com</website>
 		</author>
 		<author>
 			<name github="cz" symphony="czheng">Craig Zheng</name>
@@ -22,6 +22,10 @@
 		</author>
 	</authors>
 	<releases>
+		<release version="2.4.4" date="2017-09-20" min="2.5.0" max="2.x.x">
+			- Fix XSS possibility
+			- Prevent showing the "document it" when the text formatter is not markdown compatible
+		</release>
 		<release version="2.4.3" date="2016-08-15" min="2.5.0" max="2.x.x">
 			- Supported on PHP 7
 			- Fix static problems
