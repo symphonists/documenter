@@ -143,13 +143,13 @@
 			foreach (Administration::instance()->Page->_navigation as $menu) {
 				$items = array();
 				foreach ($menu['children'] as $item) {
-					$items[] = array($item['link'], (in_array($item['link'], $pages_array)), $menu['name'] . " > " . $item['name']);
+					$items[] = array($item['link'], (in_array($item['link'], $pages_array)), General::sanitize($menu['name']) . " > " . General::sanitize($item['name']));
 					
 					// If it's a section, add New and Edit pages
 					// NOTE: This will likely break when extensions add custom nav groups
 					if ($menu['name'] != 'Blueprints' and $menu['name'] != 'System') {
-						$items[] = array($item['link'] . 'new/', (in_array($item['link'] . 'new/', $pages_array)), $menu['name'] . " > " . $item['name'] . " New");
-						$items[] = array($item['link'] . 'edit/', (in_array($item['link'] . 'edit/', $pages_array)), $menu['name'] . " > " . $item['name'] . " Edit");
+						$items[] = array($item['link'] . 'new/', (in_array($item['link'] . 'new/', $pages_array)), General::sanitize($menu['name']) . " > " . General::sanitize($item['name']) . " New");
+						$items[] = array($item['link'] . 'edit/', (in_array($item['link'] . 'edit/', $pages_array)), General::sanitize($menu['name']) . " > " . General::sanitize($item['name']) . " Edit");
 					}
 
 					// Generate a list of sectionField-data for auto-generation of documentation:
@@ -159,7 +159,7 @@
 						foreach($fields as $field)
 						{
 							/* @var $field Field */
-							$arr2['items'][] = array('label' => $field->get('label'));
+							$arr2['items'][] = array('label' => General::sanitize($field->get('label')));
 						}
 						$arr[] = $arr2;
 					}
