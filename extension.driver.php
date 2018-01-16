@@ -127,7 +127,7 @@
 
 				}
 				
-				$button = Symphony::Configuration()->get('button-text', 'Documentation');
+				$button = General::sanitize(Symphony::Configuration()->get('button-text', 'Documentation'));
 				$drawer = Widget::Drawer(
 					'documenter',
 					($button != '' ? $button : __('Documentation')),
@@ -188,7 +188,7 @@
 			$label = Widget::Label(__('Button Text'));
 			$input = Widget::Input(
 				'settings[documentation][button-text]',
-				Symphony::Configuration()->get('button-text', 'documentation'),
+				General::sanitize(Symphony::Configuration()->get('button-text', 'documentation')),
 				'text'
 			);
 

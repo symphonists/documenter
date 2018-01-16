@@ -106,9 +106,9 @@
 			// Content textarea
 			$label = Widget::Label(__('Content'));
 			
-			$content = Widget::Textarea('fields[content]', 30, 80, $fields['content']);
+			$content = Widget::Textarea('fields[content]', 30, 80, General::sanitize($fields['content']));
 			if (Symphony::Configuration()->get('text-formatter', 'documentation') != 'none') {
-				$content->setAttribute('class', Symphony::Configuration()->get('text-formatter', 'documentation'));
+				$content->setAttribute('class', General::sanitize(Symphony::Configuration()->get('text-formatter', 'documentation')));
 			}
 			
 			$label->appendChild($content);
