@@ -22,6 +22,9 @@
 		</author>
 	</authors>
 	<releases>
+		<release version="2.4.5" date="2018-01-16" min="2.5.0" max="2.x.x">
+			- Sanitize configuration values before output
+		</release>
 		<release version="2.4.4" date="2017-09-20" min="2.5.0" max="2.x.x">
 			- Fix XSS possibility
 			- Prevent showing the "document it" when the text formatter is not markdown compatible
