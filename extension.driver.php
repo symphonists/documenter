@@ -75,14 +75,13 @@
 				$pos = strripos($current_page_url, '/edit/');
 				$current_page_url = substr($current_page_url, 0, $pos + 6);
 			}
-			$pages = Symphony::Database()->fetch("
-				SELECT
-					d.pages, d.id
-				FROM
-					`tbl_documentation` AS d
-				ORDER BY
-					d.pages ASC
-			");
+
+			$pages = Symphony::Database()
+				->select(['d.pages', 'd.id'])
+				->from('tbl_documentation', 'd')
+				->orderBy('d.pages')
+				->execute()
+				->rows();
 
 			foreach($pages as $key => $value) {
 				if(strstr($value['pages'],',')) {
@@ -108,15 +107,13 @@
 			foreach($pages as $page) {
 				if(in_array($current_page_url, $page)) {
 					if(isset($page['id'])) {
-						$items[] = Symphony::Database()->fetchRow(0, "
-							SELECT
-								d.title, d.content_formatted
-							FROM
-								`tbl_documentation` AS d
-  							WHERE
-								 d.id = '{$page['id']}'
-							LIMIT 1
-						 ");
+						$items[] = Symphony::Database()
+							->select(['d.title', 'd.content_formatted'])
+							->from('tbl_documentation', 'd')
+							->where(['d.id' => $page['id']])
+							->limit(1)
+							->execute()
+							->rows()[0];
 					}
 					else {
 						###
@@ -174,27 +171,55 @@
 		}
 
 		public function uninstall() {
-			Symphony::Database()->query("DROP TABLE `tbl_documentation`;");
+			// Symphony::Database()->query("DROP TABLE `tbl_documentation`;");
 			Symphony::Configuration()->remove('text-formatter', 'documentation');
 			Symphony::Configuration()->remove('button-text', 'documentation');
 			Symphony::Configuration()->write();
+
+			return Symphony::Database()
+				->drop('tbl_documentation')
+				->ifExists()
+				->execute()
+				->success();
 		}
 
 		public function install() {
-			Symphony::Database()->query(
-				"CREATE TABLE `tbl_documentation` (
-					`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-					`title` VARCHAR(255),
-					`pages` TEXT,
-					`content` TEXT,
-					`content_formatted` TEXT,
-					PRIMARY KEY (`id`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
-			);
 			Symphony::Configuration()->set('text-formatter', 'none', 'documentation');
 			Symphony::Configuration()->set('button-text', __('Documentation'), 'documentation');
 			Symphony::Configuration()->write();
-			return;
+
+			return Symphony::Database()
+				->create('tbl_documentation')
+				->ifNotExists()
+				->charset('utf8')
+				->collate('utf8_unicode_ci')
+				->fields([
+					'id' => [
+						'type' => 'int(11)',
+						'auto' => true,
+					],
+					'title' => [
+						'type' => 'varchar(255)',
+						'null' => true,
+					],
+					'pages' => [
+						'type' => 'text',
+						'null' => true,
+					],
+					'content' => [
+						'type' => 'text',
+						'null' => true,
+					],
+					'content_formatted' => [
+						'type' => 'text',
+						'null' => true,
+					],
+				])
+				->keys([
+					'id' => 'primary',
+				])
+				->execute()
+				->success();
 		}
 
 		public function savePreferences($context) {

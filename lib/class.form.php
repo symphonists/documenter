@@ -27,15 +27,13 @@
 			if ($this->page->_context[0]) {
 				if (!$doc_id = $this->page->_context[0]) redirect(URL . '/symphony/extension/documenter/manage');
 
-				$existing = Symphony::Database()->fetchRow(0, "
-					SELECT
-						d.*
-					FROM
-						`tbl_documentation` AS d
-					WHERE
-						d.id = '{$doc_id}'
-					LIMIT 1
-				");
+				$existing = Symphony::Database()
+					->select(['d.*'])
+					->from('tbl_documentation', 'd')
+					->where(['d.id' => $doc_id])
+					->limit(1)
+					->execute()
+					->rows()[0];
 
 				if (!$existing) {
 					$this->page->_Parent->customError(

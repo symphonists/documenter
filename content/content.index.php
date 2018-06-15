@@ -21,14 +21,12 @@
 			);
 
 		// Grab all the documentation items
-			$docs = Symphony::Database()->fetch("
-				SELECT
-					d.*
-				FROM
-					`tbl_documentation` AS d
-				ORDER BY
-					d.pages ASC
-			");
+			$docs = Symphony::Database()
+				->select(['d.*'])
+				->from('tbl_documentation', 'd')
+				->orderBy('d.pages')
+				->execute()
+				->rows();
 
 		// Build the table
 			$thead = array(
@@ -105,7 +103,12 @@
 
 						$doc_items = $checked;
 
-						Symphony::Database()->delete('tbl_documentation', " `id` IN('".implode("','",$checked)."')");
+						Symphony::Database()
+							->delete('tbl_documentation')
+							->where(['id' => ['in' => $checked]])
+							->execute()
+							->success();
+
 						redirect(Administration::instance()->getCurrentPageURL());
 						break;
 				}
