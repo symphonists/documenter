@@ -113,7 +113,7 @@
 							->where(['d.id' => $page['id']])
 							->limit(1)
 							->execute()
-							->rows()[0];
+							->next();
 					}
 					else {
 						###

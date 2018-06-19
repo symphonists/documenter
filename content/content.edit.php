@@ -26,7 +26,7 @@
 					->from('tbl_documentation')
 					->where(['id' => $doc_id])
 					->execute()
-					->rows()[0];
+					->next();
 
 				Symphony::Database()
 					->delete('tbl_documentation')

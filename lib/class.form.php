@@ -33,7 +33,7 @@
 					->where(['d.id' => $doc_id])
 					->limit(1)
 					->execute()
-					->rows()[0];
+					->next();
 
 				if (!$existing) {
 					$this->page->_Parent->customError(
