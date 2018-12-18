@@ -191,8 +191,6 @@
 			return Symphony::Database()
 				->create('tbl_documentation')
 				->ifNotExists()
-				->charset('utf8')
-				->collate('utf8_unicode_ci')
 				->fields([
 					'id' => [
 						'type' => 'int(11)',
